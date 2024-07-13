@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Arts Gallery</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="<https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css>">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><b style="font-size: 36px;">Visual Arts Gallery</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    
+                     class="nav-item"
+                        <a class="nav-link" href="#">About</a>
+                   
+                     class="nav-item"
+                        <a class="nav-link" href="#">Gallery</a>
+                   
+                   class="nav-item"
+                        <a class="nav-link" href="#">Artists</a>
+                    
+                     class="nav-item"
+                        <a class="nav-link" href="#">Exhibitions</a>
+                    
+                    class="nav-item"
+                        <a class="nav-link" href="#">Contact</a>
+                    
+                    class="nav-item"
+                        <button class="btn btn-outline-light ml-3">Sign In</button>
+                    class="nav-item"
+                        <form class="form-inline ml-3">
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+                    </li></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carousel Banner -->
+    <div id="carouselBanner" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <video class="d-block w-100" autoplay loop muted>
+                    <source src="For Honor 2022.01.08 - 11.53.16.01.mp4" type="video/mp4">
+                    
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Art Pieces -->
+    <div class="container featured-art mt-5">
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <a href="art-piece-detail.html?id=1">
+                        <img src="artist1.png" class="card-img-top" alt="Art Piece 1">
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Title 1</h5>
+                        <p class="card-text">Artist 1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <a href="art-piece-detail.html?id=2">
+                        <img src="kitty.png" class="card-img-top" alt="Art Piece 2">
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Title 2</h5>
+                        <p class="card-text">Artist 2</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <a href="art-piece-detail.html?id=3">
+                        <img src="monalisa.png" class="card-img-top" alt="Art Piece 3">
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Title 3</h5>
+                        <p class="card-text">Artist 3</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <a href="art-piece-detail.html?id=4">
+                        <img src="splat.png" class="card-img-top" alt="Art Piece 4">
+                    </a>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Title 4</h5>
+                        <p class="card-text">Artist 4</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white mt-5 py-4">
+        <div class="container text-center">
+            <p>&copy; Team 3 Visual Arts Gallery</p>
+        </div>
+    </footer>
+
+    <script src="<https://code.jquery.com/jquery-3.5.1.slim.min.js>"></script>
+    <script src="<https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js>"></script>
+    <script src="<https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js>"></script>
+</body>
+
+</html>
