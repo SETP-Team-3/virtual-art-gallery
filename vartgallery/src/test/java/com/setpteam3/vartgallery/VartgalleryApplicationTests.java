@@ -1,0 +1,13 @@
+package com.setpteam3.vartgallery;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class VartgalleryApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
