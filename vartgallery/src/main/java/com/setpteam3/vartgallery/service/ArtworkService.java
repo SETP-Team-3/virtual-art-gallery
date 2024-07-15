@@ -22,4 +22,8 @@ public class ArtworkService {
     public Optional<Artwork> getArtworkById(int id) {
         return artworkRepository.findById(id);
     }
+
+    public List<Artwork> getLatestArtworks(int limit) {
+        return artworkRepository.findTopByOrderByCreatedAtDesc(limit);
+    }
 }
