@@ -2,10 +2,11 @@ package com.setpteam3.vartgallery.service;
 
 import com.setpteam3.vartgallery.entity.Artwork;
 import com.setpteam3.vartgallery.repository.ArtworkRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ArtworkService {
@@ -23,7 +24,11 @@ public class ArtworkService {
         return artworkRepository.findById(id);
     }
 
-    public List<Artwork> getLatestArtworks(int limit) {
-        return artworkRepository.findTopByOrderByCreatedAtDesc(limit);
+    public Page<Artwork> getLatestArtworks(Pageable pageable) {
+        return artworkRepository.findTopByOrderByCreatedAtDesc(pageable);
+    }
+
+    public Page<Artwork> filterArtworks(String title, String artist, Double minPrice, Double maxPrice, List<Integer> genreIds, Pageable pageable) {
+        return artworkRepository.findArtworksByFilters(title, artist, minPrice, maxPrice, genreIds, pageable);
     }
 }

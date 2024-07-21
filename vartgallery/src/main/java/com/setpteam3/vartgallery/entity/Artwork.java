@@ -1,9 +1,12 @@
 package com.setpteam3.vartgallery.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "artwork")
@@ -48,6 +51,21 @@ public class Artwork {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @ManyToMany
+    @JoinTable(
+            name = "join_artwork_genre",
+            joinColumns = @JoinColumn(name = "artwork_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    @JsonManagedReference
+    private Set<Genre> genres = new HashSet<>();
+
+    @OneToMany(mappedBy = "artwork", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Comment> comments = new HashSet<>();
+
+    @Transient
+    private boolean liked;
+
     // Getters and setters
     public int getId() {
         return id;
@@ -61,7 +79,7 @@ public class Artwork {
         return artistId;
     }
 
-    public void setArtistId(User id) {
+    public void setArtistId(User artistId) {
         this.artistId = artistId;
     }
 
@@ -125,7 +143,7 @@ public class Artwork {
         return buyerId;
     }
 
-    public void setBuyerId(User id) {
+    public void setBuyerId(User buyerId) {
         this.buyerId = buyerId;
     }
 
@@ -145,6 +163,34 @@ public class Artwork {
         this.updatedAt = updatedAt;
     }
 
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public boolean getLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
     // toString Method
     @Override
     public String toString() {
@@ -161,6 +207,9 @@ public class Artwork {
                 ", buyerId=" + buyerId +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", genres=" + genres +
+                ", comments=" + comments +
+                ", liked=" + liked +
                 '}';
     }
 }

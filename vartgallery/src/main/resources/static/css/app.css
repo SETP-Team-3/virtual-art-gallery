@@ -8,13 +8,9 @@ main {
     flex: 1;
 }
 
-
-
 a {
     text-decoration: none;
 }
-
-
 
 
 /* Virtual Art Gallery: Custom Styles: Text */
@@ -29,8 +25,6 @@ a {
 .vag-a-tan:active {
     color: #b58863;
 }
-
-
 
 
 /* Virtual Art Gallery: Custom Styles: Buttons */
@@ -53,9 +47,23 @@ a {
 }
 
 
+/* Virtual Art Gallery: Custom Styles: Misc */
+.vag-footer {
+    background: #343a40;
+    color: #fff;
+    padding: 3rem 0;
+}
 
-.vag-section {
-	padding: 3rem 0;
+.vag-footer a {
+    color: #f8f9fa;
+}
+
+.vag-navbar-collapse-center {
+    text-align: center;
+}
+
+.vag-navbar-collapse-center .vag-btn-tan {
+    margin-right: .5rem;
 }
 
 .vag-section-tan {
@@ -66,16 +74,27 @@ a {
     background: whitesmoke;
 }
 
-
-
-
-
-.vag-footer {
-    background: #343a40;
-    color: #fff;
+.vag-section {
     padding: 3rem 0;
 }
 
-.vag-footer a {
-    color: #f8f9fa;
+@media (max-width: 768px) {
+    .vag-headnav-container {
+        width: 100%;
+    }
+
+    .vag-navbar-collapse-center .navbar-nav {
+        display: inline-block;
+        float: none;
+    }
+    
+    .vag-navbar-collapse-center .nav-item {
+        display: block;
+    }
+
+    .vag-navbar-collapse-center .vag-btn-tan {
+        margin-bottom: .5rem;
+        margin-right: 0;
+        width: 100%;
+    }
 }

@@ -1,8 +1,11 @@
 package com.setpteam3.vartgallery.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -40,6 +43,19 @@ public class User {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @ManyToMany
+    @JoinTable(name = "join_artist_genre", joinColumns = @JoinColumn(name = "artist_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
+    @JsonManagedReference
+    private Set<Genre> genres = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "user_cart", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "artwork_id"))
+    private Set<Artwork> cart = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "user_liked_artworks", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "artwork_id"))
+    private Set<Artwork> likedArtworks = new HashSet<>();
 
     // Getters and setters
     public int getId() {
@@ -130,6 +146,30 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public Set<Artwork> getCart() {
+        return cart;
+    }
+
+    public void setCart(Set<Artwork> cart) {
+        this.cart = cart;
+    }
+
+    public Set<Artwork> getLikedArtworks() {
+        return likedArtworks;
+    }
+
+    public void setLikedArtworks(Set<Artwork> likedArtworks) {
+        this.likedArtworks = likedArtworks;
+    }
+
     // toString Method
     @Override
     public String toString() {
@@ -145,6 +185,9 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", genres=" + genres +
+                ", cart=" + cart +
+                ", likedArtworks=" + likedArtworks +
                 '}';
     }
 }
