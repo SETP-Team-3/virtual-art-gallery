@@ -1,14 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exhibition Gallery news</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exhibition News Gallery</title>
+    <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./static/styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    show the latest updates on what is going on for artists or promotion
-    - Featured artwork
-    - Featured Artist
-    - Gallery show date promotion
+    <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom">
+        <a href="./index.html" class="btn btn-light" role="button">
+            <h5>VArtGallery</h5></a>
+        <a class="my-0 me-auto"></a>
+        <nav class="navbar navbar-expand-md navbar-light bg-white">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#headNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="headNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link vag-a-tan" href="./gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link vag-a-tan" href="./ExhibNews.html">Exhibition</a></li>
+                    <li class="nav-item"><a class="nav-link vag-a-tan" href="./About.html">About Us</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="btn vag-btn-tan me-2" href="#"><i class="bi bi-cart"></i> Cart</a></li>
+                    <li class="nav-item"><a class="btn vag-btn-tan" href="./signup.html"><i class="bi bi-person-circle"></i> Sign in</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="vag-section vag-section-tan">
+            <div class="col-md-15 text-center" >
+                <h2 class="mb-2">Upcoming Exhibitions</h2>
+                <div id="carouselIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="2"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://picsum.photos/id/261/1920/300" 
+                            class="img-fluid" class="d-block w-100" alt="First slide"
+                            >
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Modern Masters Exhibition</h5>
+                                <p>Come join us on Jane's first exhibition displaying her bold colors and intricate patterns, exploring the depths on human emotions!</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/id/280/1920/300"
+                                class="d-block w-100" alt="Second slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Art Beyond Borders</h5>
+                                <p>Second Slide Description</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/id/267/1920/300" class="d-block w-100" alt="Third slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Impressions of Monet</h5>
+                                <p>Third Slide Description</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    
+        <section class="vag-section">
+            <div class="container">
+                <h2 class="mb-2 text-center">ongoing exhibitions</h2>
+                <div class="row justify-content-center">
+                    <div class="row">
+                        <div class="col-6 col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://picsum.photos/id/230/200/200" class="card-img-top" alt="Artwork 1">
+                                <div class="card-body">
+                                    <h5 class="card-title">Learning Gallery</h5>
+                                    <p class="card-text">UNTIL 29 AUG '24</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://picsum.photos/id/235/200/200" class="card-img-top" alt="Artwork 2">
+                                <div class="card-body">
+                                    <h5 class="card-title">Your curious journey</h5>
+                                    <p class="card-text">ON 3 AUG'24</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://picsum.photos/id/236/200/200" class="card-img-top" alt="Artwork 3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lost & Found:Sea Chanty Project</h5>
+                                    <p class="card-text">UNTIL 31 DEC'26</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://picsum.photos/id/240/200/200" class="card-img-top" alt="Artwork 4">
+                                <div class="card-body">
+                                    <h5 class="card-title">Everyday Practices</h5>
+                                    <p class="card-text">UNTIL 22 NOV'25</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://picsum.photos/id/248/200/200" class="card-img-top" alt="Artwork 5">
+                                <div class="card-body">
+                                    <h5 class="card-title">Rhapsody in Yellow</h5>
+                                    <p class="card-text">ON 22 AUG'24</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-3 mb-4">
+                            <div class="card">
+                                <img src="https://picsum.photos/id/255/200/200" class="card-img-top" alt="Artwork 6">
+                                <div class="card-body">
+                                    <h5 class="card-title">The Distripark</h5>
+                                    <p class="card-text">UNTIL 5 MAR'24</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <section class="vag-section vag-section-whitesmoke">
+            <div class="container">
+                <h2 class="mb-5">Upcoming Exhibitions</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md">
+                        <div class="mb-4">
+                            <h5>Exhibition 1: Modern Masters</h5>
+                            <p>Join us for an exclusive showcase of works by the most influential modern artists of the 20th and 21st centuries. This exhibition highlights the groundbreaking contributions of artists who have redefined the boundaries of contemporary art.</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5>Exhibition 2: Art Beyond Borders</h5>
+                            <p>Experience the diversity of global artistry in this unique exhibition that brings together works from emerging and established artists across the world. 'Art Beyond Borders' celebrates the rich cultural heritage and innovative expressions that transcend geographical boundaries.</p>
+                        </div>
+                        <div class="text-center">
+                            <a href="exhibitions.html" class="btn vag-btn-tan">See All Exhibitions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="text-center vag-footer">
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Contact Us</h5>
+                    <p>
+                        8 Wilkie Rd, #02-01 Wilkie Edge, Singapore 228095<br />
+                        Email: info@vartgallery.com<br />
+                        Phone: (65) 6733 1877<br />
+                    </p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Follow Us</h5>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+                <div class="col-md-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe to our newsletter to stay updated on our latest exhibitions and events.</p>
+                    <form>
+                        <input type="email" class="form-control mb-2" placeholder="Enter your email">
+                        <button type="submit" class="btn vag-btn-tan">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <p class="mb-0">&copy; 2024 VArtGallery. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
