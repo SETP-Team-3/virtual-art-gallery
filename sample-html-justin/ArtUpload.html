@@ -40,7 +40,7 @@
             <div class="container">
                 <div class="row justify-content-start">
                     <div class="col-md-10">
-                        <form id="signupForm">
+                        <form id="buyForm">
                             <div class="mb-3">
                                 <label for="name" class="form-label" required>Title *</label>
                                 <input type="text" class="form-control" id="name" required placeholder="Add your title here" style="width: 400px;">
@@ -55,29 +55,52 @@
                               </div>
 
                               <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                <label class="form-check-label" for="inlineRadio1">Sell</label>
+                                <label>
+                                    <input class="form-check-input" type="radio" name="event" id="inlineRadio1" value="option1">Sell
+                                </label>
                               </div>
                               <div class="form-check form-check-inline mb-3">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                <label class="form-check-label" for="inlineRadio2">Free</label>
+                                <label>
+                                    <input class="form-check-input" type="radio" name="event" id="inlineRadio2" value="option2">Free
+                                </label>
                               </div>
-                              <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
-                                <label class="form-check-label" for="inlineRadio3">test (disabled)</label>
-                              </div>
-                              <div class="input-group mb-3" style="width:400px;">
-                                <span class="input-group-text">$</span>
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                <span class="input-group-text" >.00</span>
-                              </div>
+                              <!--Event for displaying sell function  -->
+                              <style>
+                                .event {
+                                    display: none;
+                                }
+                                </style>
+                        
+                                <div class ="event" style="width:400px;" id="option1">
+                                    <h5>This item will be listed for users to purchase!</h5>
+                                    <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+                                    <span class="input-group-text" >0.00</span>
+                                    <input type="number" class="form-control" required aria-label="Amount (to the nearest dollar)">
+                                </div>
+                                </div>
 
+                                <div id="option2" class="event">
+                                    <h5>This item will be listed as Free for users!</h5>
+                                </div>
                             <div class="mb-5">
                                 <label for="formFileLg" class="form-label">Upload Artwork</label>
                                 <input class="form-control form-control-lg" id="formFileLg" type="file" style="width: 400px;">
                               </div>
                             <button type="submit" class="btn vag-btn-tan">Upload</button>
                         </form>
+
+                        <script>
+                            document.getElementById('buyForm').addEventListener('change', function(e) {
+                                const events = document.querySelectorAll('.event');
+                                events.forEach(event => event.style.display = 'none');
+                    
+                                const selectedEvent = e.target.value;
+                                if (selectedEvent) {
+                                    document.getElementById(selectedEvent).style.display = 'block';
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
