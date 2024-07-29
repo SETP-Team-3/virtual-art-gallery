@@ -12,43 +12,74 @@
 <main>
     <section class="vag-section">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 mb-5 text-center">
-                    <h2 class="mb-5">${artwork.title}</h2>
-                    <img src="${pageContext.request.contextPath}/artwork/${artwork.image}" alt="${artwork.title}" class="img-fluid mb-4">
-                    <h4>Artist: ${artwork.artistId.name}</h4>
-                    <p>Price: <span class="vag-artwork-price">${artwork.price}</span></p>
-                    <p>${artwork.description}</p>
-                    <c:forEach var="genre" items="${artwork.genres}">
-                        <span class="badge bg-secondary">${genre.name}</span>
-                    </c:forEach>
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-5">
+                    <img src="${pageContext.request.contextPath}/artwork/${artwork.image}" alt="${artwork.title}" class="img-fluid rounded mb-4">
                 </div>
-                <div class="col-md-12 mb-3 text-center">
-                    <c:if test="${artwork.status != 'sold'}">
-                        <button class="btn vag-btn-tan" id="btnAddCartArtwork" data-artwork-id="${artwork.id}">Add to Cart</button>
-                    </c:if>
+                <div class="col-md-7">
+                    <div class="mb-5">
+                        <h2 class="mb-0">${artwork.title}</h2>
+                        <p><em>${artwork.artistId.name}</em></p>
+                        <p class="mb-0">${artwork.description}</p>
+                        <c:forEach var="genre" items="${artwork.genres}">
+                            <span class="badge bg-secondary">${genre.name}</span>
+                        </c:forEach>
+                    </div>
+                    <div>
+                        <h3>Price: $<span class="vag-artwork-price">${artwork.price}</span></h3>
+                        <c:if test="${artwork.status != 'sold' && artwork.price > 0 && not empty sessionScope.user && !isInCart}">
+                            <button class="btn vag-btn-tan" id="btnAddCartArtwork" data-artwork-id="${artwork.id}">Add to Cart</button>
+                        </c:if>
+                        <c:if test="${isInCart}">
+                            <button class="btn vag-btn-tan" disabled>Already in Cart</button>
+                        </c:if>
+                    </div>
                 </div>
+            </div>
+
+            <div class="row justify-content-center mb-5">
                 <div class="col-md-12 mb-3 text-center">
-                    <button class="btn btn-outline-secondary" id="btnLikeArtwork" data-artwork-id="${artwork.id}">
-                        <c:if test="${artwork.liked}">Unlike</c:if>
-                        <c:if test="${!artwork.liked}">Like</c:if>
+                    <button class="btn btn-outline-secondary vag-text-point7rem" id="btnLikeArtwork" data-artwork-id="${artwork.id}">
+                        <c:if test="${artwork.liked}"><i class="bi bi-star"></i> 1619 Likes</c:if>
+                        <c:if test="${!artwork.liked}"><i class="bi bi-star-fill"></i> 1620 Likes</c:if>
+                    </button>
+                    <button class="btn btn-outline-secondary vag-text-point7rem" id="btnCommentArtwork" data-artwork-id="x">
+                        <i class="bi bi-chat"></i> 42 Comments
                     </button>
                 </div>
-                <div class="col-md-12 text-center comment-section">
-                    <h4>Comments</h4>
-                    <form id="comment-form" method="post" action="${pageContext.request.contextPath}/add-comment">
-                        <div class="form-group">
-                            <textarea class="form-control" name="comment" rows="4" placeholder="Add your comment..."></textarea>
-                        </div>
-                        <input type="hidden" name="artworkId" value="${artwork.id}">
-                        <button type="submit" class="btn vag-btn-tan mt-2">Submit</button>
-                    </form>
+
+                <div class="col-md-12 text-center" style="background-color: whitesmoke;">
                     <div id="comments-list" class="mt-4">
-                        <c:forEach var="comment" items="${artwork.comments}">
-                            <div class="comment">
-                                <p><strong>${comment.user.name}:</strong> ${comment.content}</p>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p><strong>Alice:</strong> Hello</p>
                             </div>
-                        </c:forEach>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p><strong>User 1:</strong> This is a simulated comment number 1.</p>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p><strong>Alice:</strong> Hello</p>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p><strong>User 1:</strong> This is a simulated comment number 1.</p>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p><strong>Alice:</strong> Hello</p>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p><strong>User 1:</strong> This is a simulated comment number 1.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

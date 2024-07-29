@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final ArtworkRepository artworkRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, ArtworkRepository artworkRepository) {
+    public UserService(UserRepository userRepository, ArtworkRepository artworkRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.artworkRepository = artworkRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<User> getAllUsers() {
@@ -41,9 +44,8 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean addArtworkToCart(int artworkId, String username) {
-        Optional<User> userOptional = userRepository.findByEmail(username);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
+        User user = userRepository.findByEmail(username);
+        if (user != null) {
             Optional<Artwork> artworkOptional = artworkRepository.findById(artworkId);
             if (artworkOptional.isPresent()) {
                 Artwork artwork = artworkOptional.get();
@@ -56,9 +58,8 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean toggleLikeArtwork(int artworkId, String username) {
-        Optional<User> userOptional = userRepository.findByEmail(username);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
+        User user = userRepository.findByEmail(username);
+        if (user != null) {
             Optional<Artwork> artworkOptional = artworkRepository.findById(artworkId);
             if (artworkOptional.isPresent()) {
                 Artwork artwork = artworkOptional.get();
@@ -75,24 +76,37 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean isArtworkLikedByUser(int artworkId, String username) {
-        Optional<User> userOptional = userRepository.findByEmail(username);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
+        User user = userRepository.findByEmail(username);
+        if (user != null) {
             Optional<Artwork> artworkOptional = artworkRepository.findById(artworkId);
             return artworkOptional.isPresent() && user.getLikedArtworks().contains(artworkOptional.get());
         }
         return false;
     }
 
+    public User authenticateUser(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        }
+        return null;
+    }
+
+    public User authenticateAdmin(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (user != null && "admin".equals(user.getRole()) && passwordEncoder.matches(password, user.getPassword())) {
+            return user;
+        }
+        return null;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> userOptional = userRepository.findByEmail(email);
-        User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .roles(user.getRole())
-                .build();
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            return user;
+        } else {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
     }
 }

@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "artwork")
-public class Artwork {
+@Table(name = "pending_artwork")
+public class PendingArtwork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -29,27 +29,11 @@ public class Artwork {
     @Column(name = "image")
     private String image;
 
-    @Column(name = "like_count")
-    private int likeCount;
-
-    @Column(name = "view_count")
-    private int viewCount;
-
-    @Column(name = "status")
-    private String status;
-
     @Column(name = "price", precision = 10, scale = 2)
     private BigDecimal price;
 
-    @ManyToOne
-    @JoinColumn(name = "buyer_id")
-    private User buyerId;
-
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @ManyToMany
     @JoinTable(
@@ -59,12 +43,6 @@ public class Artwork {
     )
     @JsonManagedReference
     private Set<Genre> genres = new HashSet<>();
-
-    @OneToMany(mappedBy = "artwork", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Comment> comments = new HashSet<>();
-
-    @Transient
-    private boolean liked;
 
     // Getters and setters
     public int getId() {
@@ -107,44 +85,12 @@ public class Artwork {
         this.image = image;
     }
 
-    public int getLikeCount() {
-        return likeCount;
-    }
-
-    public void setLikeCount(int likeCount) {
-        this.likeCount = likeCount;
-    }
-
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public User getBuyerId() {
-        return buyerId;
-    }
-
-    public void setBuyerId(User buyerId) {
-        this.buyerId = buyerId;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -155,14 +101,6 @@ public class Artwork {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public Set<Genre> getGenres() {
         return genres;
     }
@@ -171,56 +109,18 @@ public class Artwork {
         this.genres = genres;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public boolean isLiked() {
-        return liked;
-    }
-
-    public boolean getLiked() {
-        return liked;
-    }
-
-    public void setLiked(boolean liked) {
-        this.liked = liked;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    // toString Method
+    // toString method
     @Override
     public String toString() {
-        return "Artwork{" +
+        return "PendingArtwork{" +
                 "id=" + id +
                 ", artistId=" + artistId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
-                ", likeCount=" + likeCount +
-                ", viewCount=" + viewCount +
-                ", status='" + status + '\'' +
                 ", price=" + price +
-                ", buyerId=" + buyerId +
                 ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
                 ", genres=" + genres +
-                ", comments=" + comments +
-                ", liked=" + liked +
                 '}';
     }
 }

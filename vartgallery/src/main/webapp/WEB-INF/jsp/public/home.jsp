@@ -151,6 +151,12 @@
                 </div>
             </div>
         </section>
+        <section class="vag-section">
+            <div class="container">
+                <h2 class="mb-5">Session Data</h2>
+                <p>User: ${sessionScope.user}</p>
+            </div>
+        </section>
     </main>
 
     <c:import url="./footer.jsp" />

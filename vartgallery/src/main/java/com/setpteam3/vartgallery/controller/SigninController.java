@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,48 +15,49 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
+import java.util.*;
 
 @Controller
-@RequestMapping("/admin")
-public class LoginController {
+@RequestMapping("/sign")
+public class SigninController {
     private final UserService userService;
 
-    public LoginController(UserService userService) {
+    public SigninController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "admin/login";
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> handleLogin(@RequestParam String loginEmail, @RequestParam String loginPassword, Model model, HttpServletRequest request) {
+    @PostMapping("/in")
+    public ResponseEntity<?> handleSignin(@RequestParam String signinEmail, @RequestParam String signinPassword, Model model, HttpServletRequest request) {
         try {
-            User user = userService.authenticateAdmin(loginEmail, loginPassword);
+            User user = userService.authenticateUser(signinEmail, signinPassword);
             if (user != null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("adminUser", user);
+                session.setAttribute("user", user);
                 return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("status", "success"));
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "Invalid email or password"));
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "An error occurred while logging in"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "An error occurred while signing in"));
         }
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> handleLogout(HttpServletRequest request) {
+    @PostMapping("/out")
+    public ResponseEntity<?> handleSignout(HttpServletRequest request) {
         try {
             HttpSession session = request.getSession();
-            session.removeAttribute("adminUser");
+            session.removeAttribute("user");
             return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("status", "success"));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "An error occurred while logging out"));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "An error occurred while signing out"));
         }
+    }
+
+    @GetMapping("/profile")
+    public String userProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        model.addAttribute("username", userDetails.getUsername());
+        return "public/profile";
     }
 }

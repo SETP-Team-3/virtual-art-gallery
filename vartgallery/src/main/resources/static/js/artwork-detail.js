@@ -19,11 +19,20 @@ const artworkDetailManager = {
     },
 
     addToCart: function(artworkId) {
-        $.post("/add-to-cart", { artworkId: artworkId }, function(response) {
-            if (response.success) {
-                alert("Artwork added to cart!");
-            } else {
-                alert("Failed to add artwork to cart.");
+        $.ajax({
+            type: 'POST',
+            url: `${contextPath}/cart/add`,
+            data: { artworkId: artworkId },
+            success: function(response) {
+                if (response.status === 'success') {
+                    alert('Artwork added to cart successfully');
+                    location.reload();
+                } else {
+                    alert(response.error);
+                }
+            },
+            error: function() {
+                alert('An error occurred while adding artwork to cart');
             }
         });
     },
