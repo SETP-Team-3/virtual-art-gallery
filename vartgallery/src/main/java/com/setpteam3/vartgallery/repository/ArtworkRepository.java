@@ -54,4 +54,7 @@ public interface ArtworkRepository extends JpaRepository<Artwork, Integer> {
             return findArtworksByFiltersWithGenres(title, artist, minPrice, maxPrice, genreIds, pageable);
         }
     }
+
+    @Query("SELECT a FROM Artwork a WHERE a.artistId.id = :artistId")
+    Page<Artwork> findByArtistId(@Param("artistId") int artistId, Pageable pageable);
 }
