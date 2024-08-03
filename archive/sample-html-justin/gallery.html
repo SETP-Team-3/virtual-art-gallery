@@ -27,6 +27,8 @@
                     <li class="nav-item"><a class="nav-link vag-a-tan" href="./gallery.html">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link vag-a-tan" href="./ExhibNews.html">Exhibition</a></li>
                     <li class="nav-item"><a class="nav-link vag-a-tan" href="./About.html">About Us</a></li>
+                     <li class="nav-item"><a class="nav-link vag-a-tan" href="./ArtUpload.html">Upload</a></li>
+                    <li class="nav-item"><a class="nav-link vag-a-tan" href="./UserProfile.html">Profile</a></li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="btn vag-btn-tan me-2" href="#"><i class="bi bi-cart"></i> Cart</a></li>
@@ -38,12 +40,55 @@
 
     <main>
         <section class="vag-section vag-section-tan">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-10 text-center">
-                        <h2 class="mb-5">Explore Our Extensive Art Collection</h2>
-                        <p class="mb-4">Welcome to the VArtGallery's Gallery page. Here, you can browse through our extensive collection of artworks, ranging from classical paintings to modern digital art. Use the filters below to narrow down your search and find the perfect piece for your collection.</p>
-                        <p class="mb-4">Whether you are a seasoned collector or a first-time buyer, our gallery offers a diverse selection to suit all tastes and preferences. Explore, discover, and be inspired by the finest art from around the world.</p>
+            <div class="row justify-content-center mx-lg-4" id="artworkGallery">
+                <h2 class="mb-5">Most Viewed</h2>
+                <div class="row">
+                    <div class="col-6 col-md-2 mb-2" data-name="Artwork 1" data-artist="Artist Name" data-type="painting">
+                        <div class="card">
+                            <img src="https://picsum.photos/id/261/200/200" class="card-img-top" alt="Artwork 1">
+                            <div class="card-body ">
+                                <h5 class="card-title">Artwork 1</h5>
+                                <p class="card-text">Artist Name</p>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-6 col-md-2 mb-2 artwork-card" data-name="Artwork 2" data-artist="Artist Name" data-type="painting">
+                        <div class="card">
+                            <img src="https://picsum.photos/id/264/200/200" class="card-img-top" alt="Artwork 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Artwork 2</h5>
+                                <p class="card-text">Artist Name</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="col-6 col-md-2 mb-2 artwork-card" data-name="Artwork 3" data-artist="Artist Name" data-type="painting">
+                        <div class="card">
+                            <img src="https://picsum.photos/id/263/200/200" class="card-img-top" alt="Artwork 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Artwork 3</h5>
+                                <p class="card-text">Artist Name</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2 mb-2 artwork-card" data-name="Artwork 4" data-artist="Artist Name" data-type="painting">
+                        <div class="card">
+                            <img src="https://picsum.photos/id/265/200/200" class="card-img-top" alt="Artwork 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Artwork 4</h5>
+                                <p class="card-text">Artist Name</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-2 mb-2 artwork-card" data-name="Artwork 5" data-artist="Artist Name" data-type="painting">
+                        <div class="card">
+                            <img src="https://picsum.photos/id/266/200/200" class="card-img-top" alt="Artwork 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Artwork 5</h5>
+                                <p class="card-text">Artist Name</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,7 +96,7 @@
 
         <section class="vag-section">
             <div class="container">
-                <h2 class="mb-5">Artwork Gallery</h2>
+                <h2 class="mb-5">Explore Staff Picks</h2>
                 <div class="row mb-4">
                     <div class="col-md-4">
                         <input type="text" id="artworkName" class="form-control" placeholder="Filter by Artwork Name">
@@ -72,7 +117,7 @@
                     <div class="row">
                         <div class="col-6 col-md-3 mb-4 artwork-card" data-name="Artwork 1" data-artist="Artist Name" data-type="painting">
                             <div class="card">
-                                <img src="./static/artwork/image-01.jpg" class="card-img-top" alt="Artwork 1">
+                                <img src="https://picsum.photos/id/268/200/200" class="card-img-top" alt="Artwork 1">
                                 <div class="card-body">
                                     <h5 class="card-title">Artwork 1</h5>
                                     <p class="card-text">Artist Name</p>
@@ -81,7 +126,7 @@
                         </div>
                         <div class="col-6 col-md-3 mb-4 artwork-card" data-name="Artwork 2" data-artist="Artist Name" data-type="sculpture">
                             <div class="card">
-                                <img src="./static/artwork/image-01.jpg" class="card-img-top" alt="Artwork 2">
+                                <img src="https://picsum.photos/id/269/200/200" class="card-img-top" alt="Artwork 2">
                                 <div class="card-body">
                                     <h5 class="card-title">Artwork 2</h5>
                                     <p class="card-text">Artist Name</p>
@@ -90,7 +135,7 @@
                         </div>
                         <div class="col-6 col-md-3 mb-4 artwork-card" data-name="Artwork 3" data-artist="Artist Name" data-type="painting">
                             <div class="card">
-                                <img src="./static/artwork/image-01.jpg" class="card-img-top" alt="Artwork 3">
+                                <img src="https://picsum.photos/id/270/200/200" class="card-img-top" alt="Artwork 3">
                                 <div class="card-body">
                                     <h5 class="card-title">Artwork 3</h5>
                                     <p class="card-text">Artist Name</p>
@@ -99,7 +144,7 @@
                         </div>
                         <div class="col-6 col-md-3 mb-4 artwork-card" data-name="Artwork 2" data-artist="Artist Name" data-type="digitalart">
                             <div class="card">
-                                <img src="./static/artwork/image-01.jpg" class="card-img-top" alt="Artwork 4">
+                                <img src="https://picsum.photos/id/271/200/200" class="card-img-top" alt="Artwork 4">
                                 <div class="card-body">
                                     <h5 class="card-title">Artwork 4</h5>
                                     <p class="card-text">Artist Name</p>
@@ -108,7 +153,7 @@
                         </div>
                         <div class="col-6 col-md-3 mb-4 artwork-card" data-name="Artwork 5" data-artist="Artist Name" data-type="digitalart">
                             <div class="card">
-                                <img src="./static/artwork/image-01.jpg" class="card-img-top" alt="Artwork 5">
+                                <img src="https://picsum.photos/id/272/200/200" class="card-img-top" alt="Artwork 5">
                                 <div class="card-body">
                                     <h5 class="card-title">Artwork 5</h5>
                                     <p class="card-text">Artist Name</p>
