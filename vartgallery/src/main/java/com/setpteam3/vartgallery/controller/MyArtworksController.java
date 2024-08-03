@@ -7,7 +7,6 @@ import com.setpteam3.vartgallery.service.ArtworkService;
 import com.setpteam3.vartgallery.service.GenreService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

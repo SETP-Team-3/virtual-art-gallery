@@ -72,8 +72,8 @@
             </div>
             <div class="row d-flex flex-wrap" id="artistGallery">
                 <c:forEach var="artist" items="${artists}">
-                    <div class="col-6 col-md-3 mb-4 artist-card" data-name="${artist.name}">
-                        <div class="card">
+                    <div class="col-6 col-md-3 mb-4 artist-card" data-artist-id="${artist.id}" data-name="${artist.name}">
+                        <div class="card h-100">
                             <img src="${pageContext.request.contextPath}/portrait/${artist.portrait}" class="card-img-top" alt="${artist.name}">
                             <div class="card-body">
                                 <h5 class="card-title">${artist.name}</h5>

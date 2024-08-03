@@ -12,6 +12,9 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "transaction_id")
+    private String transactionId;
+
     @Column(name = "user_id")
     private int userId;
 
@@ -24,6 +27,12 @@ public class Transaction {
     @Column(name = "amount")
     private BigDecimal amount;
 
+    @Transient
+    private String userEmail;
+
+    @Transient
+    private String artworkTitle;
+
     // Getters and setters
     public int getId() {
         return id;
@@ -31,6 +40,14 @@ public class Transaction {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
     public int getUserId() {
@@ -65,15 +82,34 @@ public class Transaction {
         this.amount = amount;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getArtworkTitle() {
+        return artworkTitle;
+    }
+
+    public void setArtworkTitle(String artworkTitle) {
+        this.artworkTitle = artworkTitle;
+    }
+
     // toString method
     @Override
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
+                ", transactionId='" + transactionId + '\'' +
                 ", userId=" + userId +
                 ", artworkId=" + artworkId +
                 ", transactionDate=" + transactionDate +
                 ", amount=" + amount +
+                ", userEmail='" + userEmail + '\'' +
+                ", artworkTitle='" + artworkTitle + '\'' +
                 '}';
     }
 }

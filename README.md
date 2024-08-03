@@ -52,17 +52,31 @@ cd virtual-art-gallery
 1. The `application.properties` file in the repository contains placeholder values for sensitive information:
     ```properties
     spring.application.name=vartgallery
+
     jwt.secret=${JWT_SECRET}
-    
+    stripe.secret=${STRIPE_SECRET}
+    stripe.public=${STRIPE_PUBLIC}
+
     spring.datasource.url=${DB_URL}
     spring.datasource.username=${DB_USERNAME}
     spring.datasource.password=${DB_PASSWORD}
-    
+
+    spring.mail.host=smtp.gmail.com
+    spring.mail.port=587
+    spring.mail.username=your.email@gmail.com
+    spring.mail.password=your_mail_password
+    spring.mail.properties.mail.smtp.auth=true
+    spring.mail.properties.mail.smtp.starttls.enable=true
+    spring.mail.properties.mail.smtp.starttls.required=true
+    spring.mail.properties.mail.smtp.connectiontimeout=5000
+    spring.mail.properties.mail.smtp.timeout=5000
+    spring.mail.properties.mail.smtp.writetimeout=5000
+
     spring.mvc.view.prefix=/WEB-INF/jsp/
     spring.mvc.view.suffix=.jsp
-    
-    spring.servlet.multipart.max-file-size=10MB
-    spring.servlet.multipart.max-request-size=50MB
+
+    spring.servlet.multipart.max-file-size=5MB
+    spring.servlet.multipart.max-request-size=10MB
     ```
 2. Download the actual `application.properties` file from our private Google Drive folder.
 3. Replace the placeholder `application.properties` file in the `src/main/resources` directory with the actual file from Google Drive.
@@ -85,6 +99,7 @@ Open your web browser and navigate to `http://localhost:8080`.
 ### Troubleshooting
 - **Database Connection Issues**: Ensure your MySQL server is running and that the connection properties in `application.properties` are correct.
 - **Dependencies Issues**: Run `./mvnw clean install` to ensure all dependencies are downloaded and the project is built correctly.
+- **Mailing**: You will need to have a Gmail account.
 
 ### Useful Commands
 - To start MySQL server:

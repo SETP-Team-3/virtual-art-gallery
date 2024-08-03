@@ -49,7 +49,7 @@ const galleryModalFilterArtistManager = {
                     });
 
                     var artistCard = `
-                        <div class="col-6 col-md-3 mb-4 artist-card" data-name="${artist.name}">
+                        <div class="col-6 col-md-3 mb-4 artist-card" data-artist-id="${artist.id}" data-name="${artist.name}" style="cursor: pointer;">
                             <div class="card h-100">
                                 <img src="${contextPath}/portrait/${artist.portrait}" class="card-img-top" alt="${artist.name}">
                                 <div class="card-body">
@@ -62,10 +62,18 @@ const galleryModalFilterArtistManager = {
                     gallery.append(artistCard);
                 });
                 
+                galleryModalFilterArtistManager.setupArtistCardClickEvent();
                 $('#currentArtistPage').text(page);
                 $('#prevArtistPage').prop('disabled', response.first);
                 $('#nextArtistPage').prop('disabled', response.last);
             }
+        });
+    },
+
+    setupArtistCardClickEvent: function() {
+        $('.artist-card').click(function() {
+            const artistId = $(this).data('artist-id');
+            window.location.href = `${contextPath}/artist-detail?id=${artistId}`;
         });
     }
 };

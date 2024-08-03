@@ -4,7 +4,6 @@ import com.setpteam3.vartgallery.entity.Artwork;
 import com.setpteam3.vartgallery.entity.Transaction;
 import com.setpteam3.vartgallery.entity.User;
 import com.setpteam3.vartgallery.service.ArtworkService;
-import com.setpteam3.vartgallery.service.CommentService;
 import com.setpteam3.vartgallery.service.TransactionService;
 import com.setpteam3.vartgallery.service.UserService;
 import com.stripe.Stripe;
@@ -105,19 +104,22 @@ public class CheckoutController {
             return ResponseEntity.badRequest().body(Collections.singletonMap("error", "Cart or user information is missing"));
         }
 
+        String uniqueTransactionId = "TRX-" + UUID.randomUUID().toString();
+
         for (Artwork artwork : cart) {
             artwork.setStatus("sold");
             artwork.setBuyerId(user);
             artworkService.save(artwork);
 
             Transaction transaction = new Transaction();
+            transaction.setTransactionId(uniqueTransactionId);
             transaction.setUserId(user.getId());
             transaction.setArtworkId(artwork.getId());
             transaction.setAmount(artwork.getPrice());
             transactionService.save(transaction);
         }
 
-        session.setAttribute("cart", new ArrayList<>()); // Clear the cart
+        session.setAttribute("cart", new ArrayList<>()); // Clear cart
 
         return ResponseEntity.ok(Collections.singletonMap("status", "success"));
     }

@@ -59,7 +59,7 @@ public class Genre {
         this.updatedAt = updatedAt;
     }
 
-    // toString Method
+    // toString method
     @Override
     public String toString() {
         return "Genre{" +

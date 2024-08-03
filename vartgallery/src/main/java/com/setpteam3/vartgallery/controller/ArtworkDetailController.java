@@ -2,18 +2,14 @@ package com.setpteam3.vartgallery.controller;
 
 import com.setpteam3.vartgallery.entity.Artwork;
 import com.setpteam3.vartgallery.service.ArtworkService;
-import com.setpteam3.vartgallery.service.CommentService;
 import com.setpteam3.vartgallery.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +18,10 @@ import java.util.Optional;
 public class ArtworkDetailController {
     private final ArtworkService artworkService;
     private final UserService userService;
-    private final CommentService commentService;
 
-    public ArtworkDetailController(ArtworkService artworkService, UserService userService, CommentService commentService) {
+    public ArtworkDetailController(ArtworkService artworkService, UserService userService) {
         this.artworkService = artworkService;
         this.userService = userService;
-        this.commentService = commentService;
     }
 
     @GetMapping
@@ -51,7 +45,6 @@ public class ArtworkDetailController {
 
                 model.addAttribute("artwork", artworkDetails);
                 model.addAttribute("isInCart", isInCart);
-                model.addAttribute("comments", commentService.getCommentsByArtworkId(id));
                 return "public/artwork-detail";
             } else {
                 return "redirect:/public/gallery";

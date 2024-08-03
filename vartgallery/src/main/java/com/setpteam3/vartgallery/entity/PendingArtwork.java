@@ -1,12 +1,9 @@
 package com.setpteam3.vartgallery.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "pending_artwork")
@@ -32,17 +29,11 @@ public class PendingArtwork {
     @Column(name = "price", precision = 10, scale = 2)
     private BigDecimal price;
 
+    @Column(name = "genre_ids")
+    private String genreIds;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-
-    @ManyToMany
-    @JoinTable(
-            name = "join_artwork_genre",
-            joinColumns = @JoinColumn(name = "artwork_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
-    )
-    @JsonManagedReference
-    private Set<Genre> genres = new HashSet<>();
 
     // Getters and setters
     public int getId() {
@@ -93,6 +84,14 @@ public class PendingArtwork {
         this.price = price;
     }
 
+    public String getGenreIds() {
+        return genreIds;
+    }
+
+    public void setGenreIds(String genreIds) {
+        this.genreIds = genreIds;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -101,12 +100,9 @@ public class PendingArtwork {
         this.createdAt = createdAt;
     }
 
-    public Set<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
     }
 
     // toString method
@@ -119,8 +115,8 @@ public class PendingArtwork {
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
                 ", price=" + price +
+                ", genreIds='" + genreIds + '\'' +
                 ", createdAt=" + createdAt +
-                ", genres=" + genres +
                 '}';
     }
 }

@@ -54,10 +54,4 @@ public class SigninController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "An error occurred while signing out"));
         }
     }
-
-    @GetMapping("/profile")
-    public String userProfile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        model.addAttribute("username", userDetails.getUsername());
-        return "public/profile";
-    }
 }

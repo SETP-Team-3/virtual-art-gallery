@@ -36,53 +36,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row justify-content-center mb-5">
-                <div class="col-md-12 mb-3 text-center">
-                    <button class="btn btn-outline-secondary vag-text-point7rem" id="btnLikeArtwork" data-artwork-id="${artwork.id}">
-                        <c:if test="${artwork.liked}"><i class="bi bi-star"></i> 1619 Likes</c:if>
-                        <c:if test="${!artwork.liked}"><i class="bi bi-star-fill"></i> 1620 Likes</c:if>
-                    </button>
-                    <button class="btn btn-outline-secondary vag-text-point7rem" id="btnCommentArtwork" data-artwork-id="x">
-                        <i class="bi bi-chat"></i> 42 Comments
-                    </button>
-                </div>
-
-                <div class="col-md-12 text-center" style="background-color: whitesmoke;">
-                    <div id="comments-list" class="mt-4">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <p><strong>Alice:</strong> Hello</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <p><strong>User 1:</strong> This is a simulated comment number 1.</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <p><strong>Alice:</strong> Hello</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <p><strong>User 1:</strong> This is a simulated comment number 1.</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <p><strong>Alice:</strong> Hello</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <p><strong>User 1:</strong> This is a simulated comment number 1.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 </main>

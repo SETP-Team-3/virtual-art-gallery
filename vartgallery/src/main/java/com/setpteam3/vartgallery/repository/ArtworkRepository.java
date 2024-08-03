@@ -15,6 +15,9 @@ public interface ArtworkRepository extends JpaRepository<Artwork, Integer> {
     @Query("SELECT a FROM Artwork a ORDER BY a.createdAt DESC")
     Page<Artwork> findTopByOrderByCreatedAtDesc(Pageable pageable);
 
+    @Query(value = "SELECT * FROM artwork ORDER BY RAND() LIMIT ?1", nativeQuery = true)
+    List<Artwork> findRandomArtworks(int limit);
+
     @Query("SELECT a FROM Artwork a JOIN a.artistId u LEFT JOIN a.genres g WHERE " +
             "(:title IS NULL OR LOWER(a.title) LIKE %:title%) AND " +
             "(:artist IS NULL OR LOWER(u.name) LIKE %:artist%) AND " +

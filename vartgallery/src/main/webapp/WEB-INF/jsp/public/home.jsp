@@ -17,24 +17,24 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="${pageContext.request.contextPath}/carousel-tan.jpg" class="d-block w-100" alt="First slide">
+                    <img src="${pageContext.request.contextPath}/carousel-about-vartgallery.jpg" class="d-block w-100">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>First Slide Title</h5>
-                        <p>First Slide Description</p>
+                        <h5>Welcome to VArtGallery</h5>
+                        <p>Discover the essence of our gallery, where art meets innovation and creativity flourishes.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/carousel-magenta.jpg" class="d-block w-100" alt="Second slide">
+                    <img src="${pageContext.request.contextPath}/carousel-kids-paint-by-numbers.jpg" class="d-block w-100">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Second Slide Title</h5>
-                        <p>Second Slide Description</p>
+                        <h5>Kids Paint By Numbers</h5>
+                        <p>Unleash your child's creativity with our engaging and fun paint-by-numbers kits, perfect for budding young artists.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img src="${pageContext.request.contextPath}/carousel-mint.jpg" class="d-block w-100" alt="Third slide">
+                    <img src="${pageContext.request.contextPath}/carousel-asian-womens-fashion.jpg" class="d-block w-100">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>Third Slide Title</h5>
-                        <p>Third Slide Description</p>
+                        <h5>Asian Women's Fashion</h5>
+                        <p>Explore the fusion of traditional and contemporary styles in our latest collection celebrating Asian women's fashion.</p>
                     </div>
                 </div>
             </div>
@@ -47,6 +47,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+
         <section class="vag-section vag-section-tan">
             <div class="container">
                 <div class="row justify-content-center">
@@ -59,102 +60,44 @@
                 </div>
             </div>
         </section>
+
         <section class="vag-section">
             <div class="container">
                 <h2 class="mb-5">Featured Artworks</h2>
                 <div class="row justify-content-center">
-                    <div class="row">
+                    <c:forEach var="artwork" items="${featuredArtworks}">
                         <div class="col-6 col-md-3 mb-4">
-                            <div class="card">
-                                <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 1">
+                            <div class="card h-100">
+                                <img src="${pageContext.request.contextPath}/artwork/${artwork.image}" class="card-img-top">
                                 <div class="card-body">
-                                    <h5 class="card-title">Artwork 1</h5>
-                                    <p class="card-text">Artist Name</p>
+                                    <h5 class="card-title">${artwork.title}</h5>
+                                    <p class="card-text">${artwork.artistId.name}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-md-3 mb-4">
-                            <div class="card">
-                                <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 2">
-                                <div class="card-body">
-                                    <h5 class="card-title">Artwork 2</h5>
-                                    <p class="card-text">Artist Name</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 mb-4">
-                            <div class="card">
-                                <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Artwork 3</h5>
-                                    <p class="card-text">Artist Name</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 mb-4">
-                            <div class="card">
-                                <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 4">
-                                <div class="card-body">
-                                    <h5 class="card-title">Artwork 4</h5>
-                                    <p class="card-text">Artist Name</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 mb-4">
-                            <div class="card">
-                                <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 5">
-                                <div class="card-body">
-                                    <h5 class="card-title">Artwork 5</h5>
-                                    <p class="card-text">Artist Name</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 mb-4">
-                            <div class="card">
-                                <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 6">
-                                <div class="card-body">
-                                    <h5 class="card-title">Artwork 6</h5>
-                                    <p class="card-text">Artist Name</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3 mb-4">
-                            <div class="card">
-                                <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 7">
-                                <div class="card-body">
-                                    <h5 class="card-title">Artwork 7</h5>
-                                    <p class="card-text">Artist Name</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </section>
+
         <section class="vag-section vag-section-whitesmoke">
             <div class="container">
                 <h2 class="mb-5">Upcoming Exhibitions</h2>
                 <div class="row justify-content-center">
                     <div class="col-md">
                         <div class="mb-4">
-                            <h5>Exhibition 1: Modern Masters</h5>
+                            <h5>Modern Masters</h5>
                             <p>Join us for an exclusive showcase of works by the most influential modern artists of the 20th and 21st centuries. This exhibition highlights the groundbreaking contributions of artists who have redefined the boundaries of contemporary art.</p>
                         </div>
                         <div class="mb-4">
-                            <h5>Exhibition 2: Art Beyond Borders</h5>
+                            <h5>Art Beyond Borders</h5>
                             <p>Experience the diversity of global artistry in this unique exhibition that brings together works from emerging and established artists across the world. 'Art Beyond Borders' celebrates the rich cultural heritage and innovative expressions that transcend geographical boundaries.</p>
                         </div>
                         <div class="text-center">
-                            <a href="#" class="btn vag-btn-tan">See All Exhibitions</a>
+                            <a href="${pageContext.request.contextPath}/exhibitions" class="btn vag-btn-tan">See All Exhibitions</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="vag-section">
-            <div class="container">
-                <h2 class="mb-5">Session Data</h2>
-                <p>User: ${sessionScope.user}</p>
             </div>
         </section>
     </main>

@@ -60,9 +60,6 @@ public class Artwork {
     @JsonManagedReference
     private Set<Genre> genres = new HashSet<>();
 
-    @OneToMany(mappedBy = "artwork", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Comment> comments = new HashSet<>();
-
     @Transient
     private boolean liked;
 
@@ -171,14 +168,6 @@ public class Artwork {
         this.genres = genres;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
-
     public boolean isLiked() {
         return liked;
     }
@@ -202,7 +191,7 @@ public class Artwork {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // toString Method
+    // toString method
     @Override
     public String toString() {
         return "Artwork{" +
@@ -219,7 +208,6 @@ public class Artwork {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", genres=" + genres +
-                ", comments=" + comments +
                 ", liked=" + liked +
                 '}';
     }

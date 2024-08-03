@@ -4,6 +4,7 @@
 <html>
 <head>
     <c:import url="./adminmeta.jsp" />
+    <script src="${pageContext.request.contextPath}/js/pending-artworks.js"></script>
 </head>
 <body>
 <c:import url="./adminheader.jsp" />
@@ -24,23 +25,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="artwork" items="${pendingArtworks}">
+                    <c:forEach var="pendingArtwork" items="${pendingArtworks}">
                         <tr>
-                            <td>${artwork.artist.name}</td>
-                            <td>${artwork.title}</td>
-                            <td>${artwork.description}</td>
-                            <td>$${artwork.price}</td>
-                            <td><img src="${pageContext.request.contextPath}/artwork/${artwork.image}" width="100" /></td>
+                            <td>${pendingArtwork.artistId.name}</td>
+                            <td>${pendingArtwork.title}</td>
+                            <td>${pendingArtwork.description}</td>
+                            <td>$${pendingArtwork.price}</td>
+                            <td><img src="${pageContext.request.contextPath}/artwork/${pendingArtwork.image}" width="100" /></td>
                             <td>
-                                <form action="${pageContext.request.contextPath}/admin/approve-artwork" method="post" style="display:inline;">
-                                    <input type="hidden" name="artworkId" value="${artwork.id}" />
-                                    <button type="submit" class="btn btn-success">Approve</button>
-                                </form>
-                                <form action="${pageContext.request.contextPath}/admin/reject-artwork" method="post" style="display:inline;">
-                                    <input type="hidden" name="artworkId" value="${artwork.id}" />
-                                    <input type="text" name="reason" placeholder="Reason for rejection" required />
-                                    <button type="submit" class="btn btn-danger">Reject</button>
-                                </form>
+                                <button type="button" class="btn btn-success w-100 mb-2 vag-btn-approve" data-id="${pendingArtwork.id}">Approve</button>
+                                <button type="button" class="btn btn-danger w-100 vag-btn-reject" data-id="${pendingArtwork.id}">Reject</button>
                             </td>
                         </tr>
                     </c:forEach>

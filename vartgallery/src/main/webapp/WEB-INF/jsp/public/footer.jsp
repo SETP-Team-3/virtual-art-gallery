@@ -17,12 +17,8 @@
                 <a href="#"><i class="bi bi-linkedin"></i></a>
             </div>
             <div class="col-md-4">
-                <h5>Newsletter</h5>
-                <p>Subscribe to our newsletter to stay updated on our latest exhibitions and events.</p>
-                <form>
-                    <input type="email" class="form-control mb-2" placeholder="Enter your email">
-                    <button type="submit" class="btn vag-btn-tan">Subscribe</button>
-                </form>
+                <h5>About Us</h5>
+                <p>VArtGallery is dedicated to showcasing the finest art from around the world. Our mission is to inspire and engage audiences through diverse and dynamic exhibitions.</p>
             </div>
         </div>
         <div class="row mt-4">

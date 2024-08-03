@@ -26,12 +26,14 @@ public class ArtworkService {
     private final ArtworkRepository artworkRepository;
     private final PendingArtworkRepository pendingArtworkRepository;
     private final GenreRepository genreRepository;
+    private final EmailService emailService;
     private final Path uploadPath = Paths.get("src/main/resources/static/artwork");
 
-    public ArtworkService(ArtworkRepository artworkRepository, PendingArtworkRepository pendingArtworkRepository, GenreRepository genreRepository) {
+    public ArtworkService(ArtworkRepository artworkRepository, PendingArtworkRepository pendingArtworkRepository, GenreRepository genreRepository, EmailService emailService) {
         this.artworkRepository = artworkRepository;
         this.pendingArtworkRepository = pendingArtworkRepository;
         this.genreRepository = genreRepository;
+        this.emailService = emailService;
 
         try {
             Files.createDirectories(uploadPath);
@@ -46,6 +48,14 @@ public class ArtworkService {
 
     public Optional<Artwork> getArtworkById(int id) {
         return artworkRepository.findById(id);
+    }
+
+    public List<Artwork> getRandomArtworks(int limit) {
+        return artworkRepository.findRandomArtworks(limit);
+    }
+
+    public void deleteArtwork(int id) {
+        artworkRepository.deleteById(id);
     }
 
     public Page<Artwork> getLatestArtworks(Pageable pageable) {
@@ -64,22 +74,6 @@ public class ArtworkService {
         artworkRepository.save(artwork);
     }
 
-    /* public void insertArtwork(String title, List<Integer> genreIds, String description, double price, MultipartFile image, User user) throws IOException {
-        String fileName = saveImage(image);
-        Artwork artwork = new Artwork();
-        artwork.setTitle(title);
-        artwork.setDescription(description);
-        artwork.setPrice(BigDecimal.valueOf(price));
-        artwork.setImage(fileName);
-        artwork.setArtistId(user);
-        artwork.setStatus("available");
-
-        Set<Genre> genres = genreRepository.findAllById(genreIds).stream().collect(Collectors.toSet());
-        artwork.setGenres(genres);
-
-        artworkRepository.save(artwork);
-    } */
-
     public void insertPendingArtwork(String title, List<Integer> genreIds, String description, double price, MultipartFile image, User user) throws IOException {
         String fileName = saveImage(image);
         PendingArtwork pendingArtwork = new PendingArtwork();
@@ -89,8 +83,8 @@ public class ArtworkService {
         pendingArtwork.setImage(fileName);
         pendingArtwork.setArtistId(user);
 
-        Set<Genre> genres = genreRepository.findAllById(genreIds).stream().collect(Collectors.toSet());
-        pendingArtwork.setGenres(genres);
+        String genreIdsString = genreIds.stream().map(String::valueOf).collect(Collectors.joining(","));
+        pendingArtwork.setGenreIds(genreIdsString);
 
         pendingArtworkRepository.save(pendingArtwork);
     }
@@ -103,20 +97,25 @@ public class ArtworkService {
         artwork.setImage(pendingArtwork.getImage());
         artwork.setArtistId(pendingArtwork.getArtistId());
         artwork.setStatus("available");
-        artwork.setGenres(pendingArtwork.getGenres());
+
+        if (pendingArtwork.getGenreIds() != null && !pendingArtwork.getGenreIds().isEmpty()) {
+            List<Integer> genreIds = Arrays.stream(pendingArtwork.getGenreIds().split(","))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+            Set<Genre> genres = new HashSet<>(genreRepository.findAllById(genreIds));
+            artwork.setGenres(genres);
+        } else {
+            artwork.setGenres(Collections.emptySet());
+        }
 
         artworkRepository.save(artwork);
         pendingArtworkRepository.delete(pendingArtwork);
-
-        // Send approval email to the artist
-        // emailService.sendApprovalEmail(pendingArtwork.getArtist(), pendingArtwork);
+        emailService.sendApprovalEmail(pendingArtwork.getArtistId(), pendingArtwork);
     }
 
-    public void rejectArtwork(PendingArtwork pendingArtwork, String reason) {
+    public void rejectArtwork(PendingArtwork pendingArtwork) {
         pendingArtworkRepository.delete(pendingArtwork);
-
-        // Send rejection email to the artist with the reason
-        // emailService.sendRejectionEmail(pendingArtwork.getArtist(), pendingArtwork, reason);
+        emailService.sendRejectionEmail(pendingArtwork.getArtistId(), pendingArtwork);
     }
 
     private String saveImage(MultipartFile image) throws IOException {
@@ -129,5 +128,9 @@ public class ArtworkService {
     public boolean isAvailable(int artworkId) {
         Optional<Artwork> artworkOptional = getArtworkById(artworkId);
         return artworkOptional.isPresent() && "available".equals(artworkOptional.get().getStatus());
+    }
+
+    public List<PendingArtwork> getAllPendingArtworks() {
+        return pendingArtworkRepository.findAll();
     }
 }

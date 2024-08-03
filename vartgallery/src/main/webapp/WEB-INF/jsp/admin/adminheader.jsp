@@ -7,7 +7,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <!-- <button class="btn btn-secondary w-100 mb-2" id="profileButton">My Profile</button> -->
                 <button class="btn btn-danger w-100" id="logoutButton">Logout</button>
             </div>
         </div>
@@ -24,11 +23,11 @@
         </div>
         <div class="collapse navbar-collapse vag-navbar-collapse-center" id="headNav">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item"><a class="nav-link vag-a-tan" href="#">Manage Artworks</a></li>
-                <li class="nav-item"><a class="nav-link vag-a-tan" href="#">Manage Users</a></li>
-                <li class="nav-item"><a class="nav-link vag-a-tan" href="#">Manage Payments</a></li>
-                <li class="nav-item"><a class="nav-link vag-a-tan" href="#">Approve Artworks</a></li>
-                <li class="nav-item"><a class="nav-link vag-a-tan" href="#">Approve Account Signups</a></li>
+                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/manage-artworks">Manage Artworks</a></li>
+                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/manage-users">Manage Users</a></li>
+                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/manage-transactions">Manage Transactions</a></li>
+                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/pending-artworks">Approve Artworks</a></li>
+                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/pending-users">Approve Account Signups</a></li>
                 <li class="nav-item"><button class="btn vag-btn-tan" data-bs-toggle="modal" data-bs-target="#accountModal"><i class="bi bi-person-circle"></i> Account</button></li>
             </ul>
         </div>

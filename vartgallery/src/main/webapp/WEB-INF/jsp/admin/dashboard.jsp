@@ -21,44 +21,27 @@
 
     <section class="vag-section">
         <div class="container">
-            <h2 class="mb-3">New Account Signups</h2>
+            <h2 class="mb-3">Pending User Signups</h2>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Email</th>
                         <th>Account Type</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Robert Smith</td>
-                        <td>Artist</td>
-                    </tr>
-                    <tr>
-                        <td>JaninePaints</td>
-                        <td>Buyer</td>
-                    </tr>
-                    <tr>
-                        <td>sneakyuser</td>
-                        <td>Buyer</td>
-                    </tr>
-                    <!-- Simulated entries -->
-                    <tr>
-                        <td>artist1234</td>
-                        <td>Artist</td>
-                    </tr>
-                    <tr>
-                        <td>buyerguy567</td>
-                        <td>Buyer</td>
-                    </tr>
-                    <tr>
-                        <td>modernartlover</td>
-                        <td>Artist</td>
-                    </tr>
+                    <c:forEach var="pendingUser" items="${pendingUsers}">
+                        <tr>
+                            <td>${pendingUser.name}</td>
+                            <td>${pendingUser.email}</td>
+                            <td>${pendingUser.role}</td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
             <div>
-                <a href="#" class="btn vag-btn-tan">See all new account signups</a>
+                <a href="${pageContext.request.contextPath}/admin/pending-users" class="btn vag-btn-tan">See all new user account signups</a>
             </div>
         </div>
     </section>
@@ -76,12 +59,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="artwork" items="${pendingArtworks}">
+                    <c:forEach var="pendingArtwork" items="${pendingArtworks}">
                         <tr>
-                            <td>${artwork.artist.name}</td>
-                            <td>${artwork.title}</td>
-                            <td>${artwork.description}</td>
-                            <td>$${artwork.price}</td>
+                            <td>${pendingArtwork.artistId.name}</td>
+                            <td>${pendingArtwork.title}</td>
+                            <td>${pendingArtwork.description}</td>
+                            <td>$${pendingArtwork.price}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -98,28 +81,28 @@
             <div class="row justify-content-center mb-3">
                 <div class="row">
                     <div class="col-sm-4 mb-4">
-                        <div class="card">
-                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 1">
+                        <a href="${pageContext.request.contextPath}/admin/manage-artworks" class="card">
+                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">Manage Artworks</h5>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-sm-4 mb-4">
-                        <div class="card">
-                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 2">
+                        <a href="${pageContext.request.contextPath}/admin/manage-users" class="card">
+                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">Manage Users</h5>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-sm-4 mb-4">
-                        <div class="card">
-                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top" alt="Artwork 3">
+                        <a href="${pageContext.request.contextPath}/admin/manage-transactions" class="card">
+                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top">
                             <div class="card-body">
-                                <h5 class="card-title">Manage Payments</h5>
+                                <h5 class="card-title">Manage Transactions</h5>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>

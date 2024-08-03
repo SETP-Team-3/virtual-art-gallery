@@ -4,7 +4,6 @@
 <html>
 <head>
     <c:import url="./meta.jsp" />
-    <!-- <script src="${pageContext.request.contextPath}/js/my-artworks.js"></script> -->
 </head>
 <body>
 <c:import url="./my-artworks-modal-uploadartwork.jsp" />

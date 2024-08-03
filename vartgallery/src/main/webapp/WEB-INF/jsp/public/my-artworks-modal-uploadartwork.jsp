@@ -18,34 +18,39 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div class="row mb-4">
-                    <div class="col-12 mb-4">
-                        <label for="artworkTitle" class="form-label">Title</label>
-                        <input type="text" id="artworkTitle" class="form-control" required>
+                <div id="uploadForm">
+                    <div class="row mb-4">
+                        <div class="col-12 mb-4">
+                            <label for="artworkTitle" class="form-label">Title</label>
+                            <input type="text" id="artworkTitle" class="form-control" required>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label for="artworkGenres" class="form-label" style="display: block;">Genres</label>
+                            <select id="artworkGenres" class="form-control" multiple multiselect-search="true">
+                                <c:forEach var="genre" items="${genres}">
+                                    <option value="${genre.id}">${genre.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label for="artworkDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="artworkDescription" rows="3" required></textarea>
+                        </div>
+                        <div class="col-12 mb-4">
+                            <label for="artworkPrice" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="artworkPrice" step="0.01" min="0.00" max="50000.00" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="artworkImage" class="form-label">Upload Artwork</label>
+                            <input type="file" class="form-control" id="artworkImage" accept="image/*" required>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center text-danger" id="uploadError" style="display: none;">
+                            <p id="uploadErrorMessage"></p>
+                        </div>
                     </div>
-                    <div class="col-12 mb-4">
-                        <label for="artworkGenres" class="form-label" style="display: block;">Genres</label>
-                        <select id="artworkGenres" class="form-control" multiple multiselect-search="true">
-                            <c:forEach var="genre" items="${genres}">
-                                <option value="${genre.id}">${genre.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="col-12 mb-4">
-                        <label for="artworkDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="artworkDescription" rows="3" required></textarea>
-                    </div>
-                    <div class="col-12 mb-4">
-                        <label for="artworkPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="artworkPrice" step="0.01" min="0.00" max="50000.00" required>
-                    </div>
-                    <div class="col-12">
-                        <label for="artworkImage" class="form-label">Upload Artwork</label>
-                        <input type="file" class="form-control" id="artworkImage" accept="image/*" required>
-                    </div>
-                    <div class="col-12 d-flex justify-content-center text-danger" id="uploadError" style="display: none;">
-                        <p id="uploadErrorMessage"></p>
-                    </div>
+                </div>
+                <div id="uploadSuccessMessage" class="text-success" style="display: none;">
+                    Your artwork upload request has successfully been submitted and will be approved by the VArtGallery Team within the next few days.
                 </div>
             </div>
             <div class="modal-footer">
