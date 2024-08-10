@@ -26,8 +26,8 @@
                 <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/manage-artworks">Manage Artworks</a></li>
                 <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/manage-users">Manage Users</a></li>
                 <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/manage-transactions">Manage Transactions</a></li>
-                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/pending-artworks">Approve Artworks</a></li>
-                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/pending-users">Approve Account Signups</a></li>
+                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/pending-artworks">Pending Artwork Uploads</a></li>
+                <li class="nav-item"><a class="nav-link vag-a-tan" href="${pageContext.request.contextPath}/admin/pending-users">Pending User Signups</a></li>
                 <li class="nav-item"><button class="btn vag-btn-tan" data-bs-toggle="modal" data-bs-target="#accountModal"><i class="bi bi-person-circle"></i> Account</button></li>
             </ul>
         </div>

@@ -23,6 +23,9 @@ public class PendingArtwork {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "dimension")
+    private String dimension;
+
     @Column(name = "image")
     private String image;
 
@@ -66,6 +69,14 @@ public class PendingArtwork {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
     }
 
     public String getImage() {
@@ -113,6 +124,7 @@ public class PendingArtwork {
                 ", artistId=" + artistId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", dimension='" + dimension + '\'' +
                 ", image='" + image + '\'' +
                 ", price=" + price +
                 ", genreIds='" + genreIds + '\'' +

@@ -38,6 +38,7 @@ const pendingArtworksManager = {
             type: 'POST',
             url: `${contextPath}/admin/reject-artwork`,
             data: { artworkId: artworkId },
+            cache: false,
             success: function(response) {
                 if (response.status === 'success') {
                     location.reload();

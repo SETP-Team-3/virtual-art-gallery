@@ -44,9 +44,6 @@
                             <p class="card-text">${user.address}</p>
                         </div>
                     </div>
-                    <!-- <div class="text-center">
-                        <a href="${pageContext.request.contextPath}/edit-profile" class="btn vag-btn-tan">Edit Profile</a>
-                    </div> -->
                 </div>
             </div>
         </div>

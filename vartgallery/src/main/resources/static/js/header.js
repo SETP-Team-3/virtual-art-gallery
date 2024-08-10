@@ -45,7 +45,7 @@ const headerManager = {
                 }
             },
             error: function(jqXHR) {
-                let errorMessage = 'An error occurred. Please try again.';
+                let errorMessage = 'An error occurred. Please try again';
                 if (jqXHR.responseJSON && jqXHR.responseJSON.error) {
                     errorMessage = jqXHR.responseJSON.error;
                 }

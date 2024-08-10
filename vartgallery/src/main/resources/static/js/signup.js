@@ -43,14 +43,24 @@ const signupManager = {
             return;
         }
 
+        let role = $('#role').val();
+        let biography = $('#biography').val().trim();
+        let reason = $('#reason').val().trim();
+        let description = '';
+
+        if (role === 'artist' && biography !== '') {
+            description = biography;
+        } else if (role === 'buyer' && reason !== '') {
+            description = reason;
+        }
+
         let formData = new FormData();
         formData.append('name', $('#name').val());
         formData.append('email', $('#email').val());
         formData.append('password', password);
         formData.append('role', $('#role').val());
         formData.append('portfolio', $('#portfolio').val());
-        formData.append('biography', $('#biography').val());
-        formData.append('reason', $('#reason').val());
+        formData.append('description', description);
         formData.append('portrait', $('#portrait')[0].files[0]);
         formData.append('address', $('#address').val());
         formData.append('phone', $('#phone').val());

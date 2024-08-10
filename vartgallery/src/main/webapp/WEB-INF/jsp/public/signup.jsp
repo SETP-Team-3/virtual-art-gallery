@@ -65,7 +65,7 @@
                         <div class="mb-3">
                             <label for="role" class="form-label">I'm joining as <span class="text-danger">*</span></label>
                             <select class="form-control" id="role" required>
-                                <option value="">Select</option>
+                                <option value="" selected disabled>Select</option>
                                 <option value="artist">an artist</option>
                                 <option value="buyer">a buyer</option>
                             </select>

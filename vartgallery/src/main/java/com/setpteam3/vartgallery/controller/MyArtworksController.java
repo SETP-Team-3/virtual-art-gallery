@@ -70,6 +70,7 @@ public class MyArtworksController {
                                            @RequestParam("title") String title,
                                            @RequestParam("genres") List<Integer> genreIds,
                                            @RequestParam("description") String description,
+                                           @RequestParam("dimension") String dimension,
                                            @RequestParam("price") double price,
                                            @RequestParam("image") MultipartFile image) throws IOException {
         HttpSession session = request.getSession();
@@ -77,7 +78,7 @@ public class MyArtworksController {
 
         if (user != null) {
             try {
-                artworkService.insertPendingArtwork(title, genreIds, description, price, image, user);
+                artworkService.insertPendingArtwork(title, genreIds, description, dimension, price, image, user);
                 return ResponseEntity.ok(Collections.singletonMap("status", "success"));
             } catch (IOException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "Failed to upload artwork"));

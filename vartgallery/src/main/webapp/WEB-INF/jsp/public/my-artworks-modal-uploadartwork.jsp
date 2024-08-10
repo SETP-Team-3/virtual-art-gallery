@@ -37,6 +37,10 @@
                             <textarea class="form-control" id="artworkDescription" rows="3" required></textarea>
                         </div>
                         <div class="col-12 mb-4">
+                            <label for="artworkDimension" class="form-label">Dimensions</label>
+                            <input type="text" id="artworkDimension" class="form-control" required>
+                        </div>
+                        <div class="col-12 mb-4">
                             <label for="artworkPrice" class="form-label">Price</label>
                             <input type="number" class="form-control" id="artworkPrice" step="0.01" min="0.00" max="50000.00" required>
                         </div>

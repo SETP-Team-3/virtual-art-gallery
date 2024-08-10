@@ -56,6 +56,38 @@
                             </c:choose>
                         </div>
                     </div>
+                    <c:if test="${user.role == 'artist'}">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Artworks Sold</h5>
+                                <c:choose>
+                                    <c:when test="${empty artworksSold}">
+                                        <p class="card-text">You have not sold any artworks.</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Artwork</th>
+                                                    <th scope="col">Buyer</th>
+                                                    <th scope="col">Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach var="soldArtwork" items="${artworksSold}">
+                                                    <tr>
+                                                        <td>${soldArtwork.title}</td>
+                                                        <td>${soldArtwork.buyerId.name}</td>
+                                                        <td>$${soldArtwork.price}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </div>

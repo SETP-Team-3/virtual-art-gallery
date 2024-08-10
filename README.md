@@ -1,12 +1,12 @@
 # Virtual Art Gallery
 
 ## SETP Team 3: Team Members
-- Colin Chia - CT0379777
-- Justin Kwan - CT0376857
-- Thalhan - CT0378426
-- Mak Jun Kit - CT0337394
+- Colin - CT0379777
+- Desmond - CT378428
 - Haziq - CTO367416
-- Desmond Goh - CT378428
+- Jun Kit - CT0337394
+- Justin - CT0376857
+- Thalhan - CT0378426
 
 ---
 
@@ -48,38 +48,12 @@ cd virtual-art-gallery
     3. Navigate to the `sql/02-init-account.sql` file in the cloned repository directory and open it.
     4. Run the SQL script by clicking the lightning bolt icon.
 
-### 3. Configure Application Properties
-1. The `application.properties` file in the repository contains placeholder values for sensitive information:
-    ```properties
-    spring.application.name=vartgallery
-
-    jwt.secret=${JWT_SECRET}
-    stripe.secret=${STRIPE_SECRET}
-    stripe.public=${STRIPE_PUBLIC}
-
-    spring.datasource.url=${DB_URL}
-    spring.datasource.username=${DB_USERNAME}
-    spring.datasource.password=${DB_PASSWORD}
-
-    spring.mail.host=smtp.gmail.com
-    spring.mail.port=587
-    spring.mail.username=your.email@gmail.com
-    spring.mail.password=your_mail_password
-    spring.mail.properties.mail.smtp.auth=true
-    spring.mail.properties.mail.smtp.starttls.enable=true
-    spring.mail.properties.mail.smtp.starttls.required=true
-    spring.mail.properties.mail.smtp.connectiontimeout=5000
-    spring.mail.properties.mail.smtp.timeout=5000
-    spring.mail.properties.mail.smtp.writetimeout=5000
-
-    spring.mvc.view.prefix=/WEB-INF/jsp/
-    spring.mvc.view.suffix=.jsp
-
-    spring.servlet.multipart.max-file-size=5MB
-    spring.servlet.multipart.max-request-size=10MB
-    ```
+### 3. Configure Environment Variables
+1. The `application.properties` file in the repository contains placeholder values for sensitive information.
 2. Download the actual `application.properties` file from our private Google Drive folder.
 3. Replace the placeholder `application.properties` file in the `src/main/resources` directory with the actual file from Google Drive.
+4. Also, replace the placeholder `var stripePublicKey = 'pk_test_your_stripe_public_key'` inside the `vartgallery/src/main/resources/static/js/checkout.js` file with the Stripe public key in our `misc.txt`, in our private Google Drive folder.
+5. The `misc.txt` file in our private Google Drive also contains the login credentials for our `setpteam3vartg@gmail.com` Gmail account.
 
 ### 4. Build and Run the Application
 1. Open your IDE and import the project.
@@ -92,14 +66,15 @@ Alternatively, you can use the terminal to run the application:
 ```
 
 ### 5. Access the Application
-Open your web browser and navigate to `http://localhost:8080`.
+Open your web browser and navigate to `http://localhost:8080`. To access the admin dashboard, navigate to `http://localhost:8080/admin/login`.
 
 ## Additional Information
 
-### Troubleshooting
+### 1. Miscellaneous Notes
 - **Database Connection Issues**: Ensure your MySQL server is running and that the connection properties in `application.properties` are correct.
 - **Dependencies Issues**: Run `./mvnw clean install` to ensure all dependencies are downloaded and the project is built correctly.
 - **Mailing**: You will need to have a Gmail account.
+- **Testing User Accounts**: For simplicity's sake, all account passwords are 'test123' and BCrypted.
 
 ### Useful Commands
 - To start MySQL server:

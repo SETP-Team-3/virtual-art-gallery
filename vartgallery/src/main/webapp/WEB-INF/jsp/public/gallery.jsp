@@ -41,6 +41,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">${artwork.title}</h5>
                                 <p class="card-text">
+                                    <span style="font-size: small">${artwork.dimension}</span><br />
                                     ${artwork.artistId.name}<br />
                                     <span class="vag-artwork-price">${artwork.price}</span>
                                 </p>

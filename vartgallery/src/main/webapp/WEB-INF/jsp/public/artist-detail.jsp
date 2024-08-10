@@ -32,7 +32,7 @@
                     <h3>Artworks by ${artist.name}</h3>
                     <div class="row d-flex flex-wrap">
                         <c:forEach var="artwork" items="${artworks}">
-                            <div class="col-6 col-md-3 mb-4 artwork-card" data-id="${artwork.id}" data-title="${artwork.title}">
+                            <div class="col-6 col-md-3 mb-4 artwork-card" data-id="${artwork.id}" data-title="${artwork.title}" style="cursor: pointer">
                                 <div class="card h-100">
                                     <img src="${pageContext.request.contextPath}/artwork/${artwork.image}" class="card-img-top" alt="${artwork.title}">
                                     <div class="card-body">

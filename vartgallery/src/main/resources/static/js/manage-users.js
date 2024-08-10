@@ -6,6 +6,9 @@ const manageUsersManager = {
     setupEventListeners: function() {
         this.setupViewButtonClickEvent();
         this.setupDeleteButtonClickEvent();
+        this.setupCreateUserFormSubmitEvent();
+        this.setupEditButtonClickEvent();
+        this.setupEditUserFormSubmitEvent();
     },
 
     setupViewButtonClickEvent: function() {
@@ -21,6 +24,77 @@ const manageUsersManager = {
             if (confirm('Are you sure you want to delete this user?')) {
                 manageUsersManager.deleteUser(userId);
             }
+        });
+    },
+
+    setupCreateUserFormSubmitEvent: function() {
+        $('#createUserForm').submit(function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            $.ajax({
+                url: `${contextPath}/admin/user`,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    alert('User created successfully');
+                    location.reload();
+                },
+                error: function(xhr) {
+                    if (xhr.status === 409) {
+                        alert('Email already exists');
+                    } else {
+                        alert('Error creating user');
+                    }
+                }
+            });
+        });
+    },
+
+    setupEditButtonClickEvent: function() {
+        $('.vag-btn-edituser').on('click', function() {
+            const userId = $(this).data('user-id');
+            $.ajax({
+                url: `${contextPath}/admin/user/${userId}`,
+                type: 'GET',
+                success: function(user) {
+                    $('#editUserId').val(user.id);
+                    $('#editEmail').val(user.email);
+                    $('#editRole').val(user.role);
+                    $('#editName').val(user.name);
+                    $('#editDescription').val(user.description);
+                    $('#editAddress').val(user.address);
+                    $('#editPhone').val(user.phone);
+                },
+                error: function() {
+                    alert('Error fetching user details');
+                }
+            });
+        });
+    },
+
+    setupEditUserFormSubmitEvent: function() {
+        $('#editUserForm').submit(function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const userId = $('#editUserId').val();
+
+            $.ajax({
+                url: `${contextPath}/admin/user/${userId}`,
+                type: 'PUT',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    alert('User updated successfully');
+                    location.reload();
+                },
+                error: function() {
+                    alert('Error updating user');
+                }
+            });
         });
     },
 
@@ -41,9 +115,8 @@ const manageUsersManager = {
 
     deleteUser: function(userId) {
         $.ajax({
-            url: `${contextPath}/admin/delete-user`,
-            method: 'POST',
-            data: { userId: userId },
+            url: `${contextPath}/admin/user/${userId}`,
+            method: 'DELETE',
             success: function(response) {
                 location.reload();
             },

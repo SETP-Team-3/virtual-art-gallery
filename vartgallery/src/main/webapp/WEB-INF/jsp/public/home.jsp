@@ -4,6 +4,7 @@
 <html>
 <head>
     <c:import url="./meta.jsp" />
+    <script src="${pageContext.request.contextPath}/js/home.js"></script>
 </head>
 <body>
     <c:import url="./header.jsp" />
@@ -66,7 +67,7 @@
                 <h2 class="mb-5">Featured Artworks</h2>
                 <div class="row justify-content-center">
                     <c:forEach var="artwork" items="${featuredArtworks}">
-                        <div class="col-6 col-md-3 mb-4">
+                        <div class="col-6 col-md-3 mb-4 artwork-card" style="cursor: pointer" data-id="${artwork.id}">
                             <div class="card h-100">
                                 <img src="${pageContext.request.contextPath}/artwork/${artwork.image}" class="card-img-top">
                                 <div class="card-body">

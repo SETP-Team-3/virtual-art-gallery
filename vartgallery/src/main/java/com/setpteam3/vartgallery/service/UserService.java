@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userRepository.findByActive("Y");
     }
 
     public Optional<User> getUserById(int id) {
@@ -56,15 +56,20 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteUser(int id) {
-        userRepository.deleteById(id);
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            User u = user.get();
+            u.setActive("N");
+            userRepository.save(u);
+        }
     }
 
     public Page<User> getArtists(Pageable pageable) {
-        return userRepository.findByRole("artist", pageable);
+        return userRepository.findByRoleAndActive("artist", "Y", pageable);
     }
 
     public Page<User> filterArtists(String name, List<Integer> genreIds, Pageable pageable) {
-        return userRepository.findArtistsByFilters(name, genreIds, pageable);
+        return userRepository.findArtistsByFilters(name, genreIds, "Y", pageable);
     }
 
     public boolean addArtworkToCart(int artworkId, String username) {
@@ -109,7 +114,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User authenticateUser(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findActiveUserByEmail(email);
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
             return user;
         }
@@ -117,7 +122,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User authenticateAdmin(String email, String password) {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findActiveUserByEmail(email);
         if (user != null && "admin".equals(user.getRole()) && passwordEncoder.matches(password, user.getPassword())) {
             return user;
         }
@@ -125,7 +130,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void insertPendingUser(String name, String email, String password, String role, String portfolio,
-                                  String biography, String reason, MultipartFile portrait, String address,
+                                  String description, MultipartFile portrait, String address,
                                   String phone, String genreIds) throws IOException {
         String fileName = saveImage(portrait);
         String encodedPassword = passwordEncoder.encode(password);
@@ -136,7 +141,7 @@ public class UserService implements UserDetailsService {
         pendingUser.setPassword(encodedPassword);
         pendingUser.setRole(role);
         pendingUser.setPortfolio(portfolio);
-        pendingUser.setDescription(biography != null ? biography : reason);
+        pendingUser.setDescription(description);
         pendingUser.setPortrait(fileName);
         pendingUser.setAddress(address);
         pendingUser.setPhone(phone);
@@ -176,7 +181,7 @@ public class UserService implements UserDetailsService {
         pendingUserRepository.delete(pendingUser);
     }
 
-    private String saveImage(MultipartFile image) throws IOException {
+    public String saveImage(MultipartFile image) throws IOException {
         String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
         Path filePath = uploadPath.resolve(fileName);
         Thumbnails.of(image.getInputStream()).size(600, 600).toFile(filePath.toFile());
@@ -187,9 +192,29 @@ public class UserService implements UserDetailsService {
         return pendingUserRepository.findAll();
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User findById(int id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    public void deleteById(int id) {
+        userRepository.deleteById(id);
+    }
+
+    public User emailExists(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findActiveUserByEmail(email);
         if (user != null) {
             return user;
         } else {

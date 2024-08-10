@@ -49,6 +49,9 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "active")
+    private String active = "Y";
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "join_artist_genre", joinColumns = @JoinColumn(name = "artist_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     @JsonManagedReference
@@ -175,6 +178,14 @@ public class User implements UserDetails {
         this.likedArtworks = likedArtworks;
     }
 
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
@@ -220,6 +231,7 @@ public class User implements UserDetails {
                 ", phone='" + phone + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", active='" + active + '\'' +
                 ", genres=" + genres +
                 ", cart=" + cart +
                 ", likedArtworks=" + likedArtworks +

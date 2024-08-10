@@ -4,6 +4,7 @@
 <html>
 <head>
     <c:import url="./meta.jsp" />
+    <script src="${pageContext.request.contextPath}/js/my-artworks.js"></script>
 </head>
 <body>
 <c:import url="./my-artworks-modal-uploadartwork.jsp" />
@@ -31,7 +32,7 @@
             </div>
             <div class="row d-flex flex-wrap" id="artworkGallery">
                 <c:forEach var="artwork" items="${artworks}">
-                    <div class="col-6 col-md-3 mb-4 artwork-card" data-id="${artwork.id}" data-title="${artwork.title}">
+                    <div class="col-6 col-md-3 mb-4 artwork-card" style="cursor: pointer" data-id="${artwork.id}" data-title="${artwork.title}">
                         <div class="card h-100">
                             <img src="${pageContext.request.contextPath}/artwork/${artwork.image}" class="card-img-top" alt="${artwork.title}">
                             <div class="card-body">

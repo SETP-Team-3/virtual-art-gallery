@@ -19,7 +19,10 @@
                 <div class="col-md-7">
                     <div class="mb-5">
                         <h2 class="mb-0">${artwork.title}</h2>
-                        <p><em>${artwork.artistId.name}</em></p>
+                        <p>
+                            ${artwork.dimension}<br />
+                            <em>${artwork.artistId.name}</em>
+                        </p>
                         <p class="mb-0">${artwork.description}</p>
                         <c:forEach var="genre" items="${artwork.genres}">
                             <span class="badge bg-secondary">${genre.name}</span>
@@ -32,6 +35,12 @@
                         </c:if>
                         <c:if test="${isInCart}">
                             <button class="btn vag-btn-tan" disabled>Already in Cart</button>
+                        </c:if>
+                        <c:if test="${artwork.status == 'sold'}">
+                            <button class="btn vag-btn-tan" disabled>Artwork Sold</button>
+                        </c:if>
+                        <c:if test="${artwork.price <= 0}">
+                            <button class="btn vag-btn-tan" disabled>Artwork Free</button>
                         </c:if>
                     </div>
                 </div>

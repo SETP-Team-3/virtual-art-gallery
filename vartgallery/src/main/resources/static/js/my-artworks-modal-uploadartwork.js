@@ -24,10 +24,11 @@ const myArtworksModalUploadArtworkManager = {
         // Validate form inputs
         let title = $('#artworkTitle').val();
         let description = $('#artworkDescription').val();
+        let dimension = $('#artworkDimension').val();
         let price = $('#artworkPrice').val();
         let image = $('#artworkImage')[0].files[0];
 
-        if (!title || !description || !price || !image) {
+        if (!title || !description || !dimension || !price || !image) {
             $('#uploadErrorMessage').text('All fields except for genres are required');
             $('#uploadError').show();
             return;
@@ -40,6 +41,7 @@ const myArtworksModalUploadArtworkManager = {
         formData.append('title', title);
         formData.append('genres', $('#artworkGenres').val());
         formData.append('description', description);
+        formData.append('dimension', dimension);
         formData.append('price', price);
         formData.append('image', image);
 
@@ -76,6 +78,7 @@ const myArtworksModalUploadArtworkManager = {
         $('#artworkTitle').val('');
         $('#artworkGenres').val([]);
         $('#artworkDescription').val('');
+        $('#artworkDimension').val('');
         $('#artworkPrice').val('');
         $('#artworkImage').val('');
         this.uploadSuccess = false;

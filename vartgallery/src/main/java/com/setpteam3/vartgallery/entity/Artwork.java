@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@NamedEntityGraph(name = "Artwork.detail", attributeNodes = {@NamedAttributeNode("genres")})
 @Table(name = "artwork")
 public class Artwork {
     @Id
@@ -25,6 +26,9 @@ public class Artwork {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "dimension")
+    private String dimension;
 
     @Column(name = "image")
     private String image;
@@ -51,6 +55,9 @@ public class Artwork {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "active")
+    private String active = "Y";
+
     @ManyToMany
     @JoinTable(
             name = "join_artwork_genre",
@@ -62,6 +69,9 @@ public class Artwork {
 
     @Transient
     private boolean liked;
+
+    @Version
+    private Integer version;
 
     // Getters and setters
     public int getId() {
@@ -94,6 +104,14 @@ public class Artwork {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDimension() {
+        return dimension;
+    }
+
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
     }
 
     public String getImage() {
@@ -180,6 +198,14 @@ public class Artwork {
         this.liked = liked;
     }
 
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();
@@ -199,6 +225,7 @@ public class Artwork {
                 ", artistId=" + artistId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", dimension='" + dimension + '\'' +
                 ", image='" + image + '\'' +
                 ", likeCount=" + likeCount +
                 ", viewCount=" + viewCount +
@@ -207,8 +234,10 @@ public class Artwork {
                 ", buyerId=" + buyerId +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", active='" + active + '\'' +
                 ", genres=" + genres +
                 ", liked=" + liked +
+                ", version=" + version +
                 '}';
     }
 }

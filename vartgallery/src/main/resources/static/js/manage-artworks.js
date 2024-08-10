@@ -58,6 +58,7 @@ const manageArtworksManager = {
 
         let htmlContent = `
             <div class="container">
+                <img src="${contextPath}/artwork/${artwork.image}" class="image-fluid" alt="${artwork.title}">
                 <p>
                     <strong>ID: ${artwork.id}</strong><br />
                     Title: ${artwork.title}<br />

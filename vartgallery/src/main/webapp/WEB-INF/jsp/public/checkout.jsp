@@ -34,6 +34,22 @@
             max-width: 500px;
             margin: 0 auto;
         }
+
+        .spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -45,7 +61,7 @@
             <div class="row justify-content-center mb-5">
                 <div class="col-md-10">
                     <h2 class="mb-3 text-center">Checkout</h2>
-                    <div id="unavailableArtworks" class="alert alert-danger" style="display:none;"></div>
+                    <div id="unavailableArtworks" class="alert alert-danger vag-card-container" style="display:none;"></div>
                     <div class="card vag-card-container p-4" style="background-color: whitesmoke;">
                         <h3 class="mb-3">Order Summary</h3>
                         <table class="table">
@@ -80,11 +96,12 @@
                         </form>
                         <div id="paymentSuccess" style="display: none;" class="mt-3 text-center text-success">
                             <p>Payment Succeeded! Thank you for your purchase.</p>
-                            <p>You will now be redirected back to the Home Page...</p>
+                            <p>You will now be redirected back to the Home Page in 5 seconds...</p>
                         </div>
                         <div id="paymentFailed" style="display: none;" class="mt-3 text-center text-danger">
                             <p>Payment Failed. Please try again.</p>
                         </div>
+                        <div class="spinner" id="spinner"></div>
                     </div>
                     <div class="mt-3 text-center">
                         <a id="backToCartBtn" href="${pageContext.request.contextPath}/cart" class="btn btn-secondary">Back to Cart</a>

@@ -35,6 +35,10 @@ public class SigninController {
                 session.setAttribute("user", user);
                 return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("status", "success"));
             } else {
+                User inactiveUser = userService.emailExists(signinEmail);
+                if (inactiveUser != null && "N".equals(inactiveUser.getActive())) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "This account has been deactivated"));
+                }
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "Invalid email or password"));
             }
         } catch (Exception e) {
@@ -48,6 +52,7 @@ public class SigninController {
         try {
             HttpSession session = request.getSession();
             session.removeAttribute("user");
+            session.removeAttribute("cart");
             return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("status", "success"));
         } catch (Exception e) {
             e.printStackTrace();

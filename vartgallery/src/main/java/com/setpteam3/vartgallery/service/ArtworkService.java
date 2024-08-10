@@ -8,9 +8,11 @@ import com.setpteam3.vartgallery.repository.ArtworkRepository;
 import com.setpteam3.vartgallery.repository.GenreRepository;
 import com.setpteam3.vartgallery.repository.PendingArtworkRepository;
 import net.coobird.thumbnailator.Thumbnails;
+import org.hibernate.Hibernate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class ArtworkService {
     }
 
     public List<Artwork> getAllArtworks() {
-        return artworkRepository.findAll();
+        return artworkRepository.findByActive("Y");
     }
 
     public Optional<Artwork> getArtworkById(int id) {
@@ -51,34 +53,40 @@ public class ArtworkService {
     }
 
     public List<Artwork> getRandomArtworks(int limit) {
-        return artworkRepository.findRandomArtworks(limit);
+        return artworkRepository.findRandomArtworks("Y", limit);
     }
 
     public void deleteArtwork(int id) {
-        artworkRepository.deleteById(id);
+        Optional<Artwork> artwork = artworkRepository.findById(id);
+        if (artwork.isPresent()) {
+            Artwork a = artwork.get();
+            a.setActive("N");
+            artworkRepository.save(a);
+        }
     }
 
     public Page<Artwork> getLatestArtworks(Pageable pageable) {
-        return artworkRepository.findTopByOrderByCreatedAtDesc(pageable);
+        return artworkRepository.findTopByOrderByCreatedAtDesc("Y", pageable);
     }
 
     public Page<Artwork> filterArtworks(String title, String artist, Double minPrice, Double maxPrice, List<Integer> genreIds, Pageable pageable) {
-        return artworkRepository.findArtworksByFilters(title, artist, minPrice, maxPrice, genreIds, pageable);
+        return artworkRepository.findArtworksByFilters(title, artist, minPrice, maxPrice, genreIds, "Y", pageable);
     }
 
     public Page<Artwork> getArtworksByUserId(int artistId, Pageable pageable) {
-        return artworkRepository.findByArtistId(artistId, pageable);
+        return artworkRepository.findByArtistId(artistId, "Y", pageable);
     }
 
     public void save(Artwork artwork) {
         artworkRepository.save(artwork);
     }
 
-    public void insertPendingArtwork(String title, List<Integer> genreIds, String description, double price, MultipartFile image, User user) throws IOException {
+    public void insertPendingArtwork(String title, List<Integer> genreIds, String description, String dimension, double price, MultipartFile image, User user) throws IOException {
         String fileName = saveImage(image);
         PendingArtwork pendingArtwork = new PendingArtwork();
         pendingArtwork.setTitle(title);
         pendingArtwork.setDescription(description);
+        pendingArtwork.setDimension(dimension);
         pendingArtwork.setPrice(BigDecimal.valueOf(price));
         pendingArtwork.setImage(fileName);
         pendingArtwork.setArtistId(user);
@@ -93,6 +101,7 @@ public class ArtworkService {
         Artwork artwork = new Artwork();
         artwork.setTitle(pendingArtwork.getTitle());
         artwork.setDescription(pendingArtwork.getDescription());
+        artwork.setDimension(pendingArtwork.getDimension());
         artwork.setPrice(pendingArtwork.getPrice());
         artwork.setImage(pendingArtwork.getImage());
         artwork.setArtistId(pendingArtwork.getArtistId());
@@ -127,10 +136,19 @@ public class ArtworkService {
 
     public boolean isAvailable(int artworkId) {
         Optional<Artwork> artworkOptional = getArtworkById(artworkId);
-        return artworkOptional.isPresent() && "available".equals(artworkOptional.get().getStatus());
+        boolean available = artworkOptional.isPresent() && "available".equals(artworkOptional.get().getStatus());
+        return available;
     }
 
     public List<PendingArtwork> getAllPendingArtworks() {
         return pendingArtworkRepository.findAll();
+    }
+
+    public List<Artwork> findArtworksSoldByArtistId(User artist) {
+        return artworkRepository.findArtworksByArtistIdAndStatus(artist, "sold");
+    }
+
+    public List<Artwork> findArtworksByIds(List<Integer> ids) {
+        return artworkRepository.findByIds(ids, "Y");
     }
 }

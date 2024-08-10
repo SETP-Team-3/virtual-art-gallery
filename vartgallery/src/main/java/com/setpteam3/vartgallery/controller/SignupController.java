@@ -39,14 +39,13 @@ public class SignupController {
                                           @RequestParam("password") String password,
                                           @RequestParam("role") String role,
                                           @RequestParam(value = "portfolio", required = false) String portfolio,
-                                          @RequestParam(value = "biography", required = false) String biography,
-                                          @RequestParam(value = "reason", required = false) String reason,
+                                          @RequestParam(value = "description", required = false) String description,
                                           @RequestParam("portrait") MultipartFile portrait,
                                           @RequestParam(value = "address", required = false) String address,
                                           @RequestParam(value = "phone", required = false) String phone,
                                           @RequestParam(value = "genre_ids", required = false) String genreIds) throws IOException {
         try {
-            userService.insertPendingUser(name, email, password, role, portfolio, biography, reason, portrait, address, phone, genreIds);
+            userService.insertPendingUser(name, email, password, role, portfolio, description, portrait, address, phone, genreIds);
             return ResponseEntity.ok(Collections.singletonMap("status", "success"));
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("error", "Failed to submit account request"));

@@ -1,6 +1,6 @@
 const checkoutManager = {
     init: function() {
-        var stripePublicKey = 'pk_test_51KTJiPDKUSJEksT0iKqtfCfV0xcVK8MG3dNzySrUyTrBsbgWkW9sgaOmKv6bTrHuonRMUapmIbnIBnN5yFuoAixO00ISnEbgz4';
+        var stripePublicKey = 'your_stripe_public_key';
         this.stripe = Stripe(stripePublicKey);
         this.elements = this.stripe.elements();
         this.cardElement = this.elements.create('card');
@@ -16,18 +16,34 @@ const checkoutManager = {
     resetMessages: function() {
         $('#paymentSuccess').hide();
         $('#paymentFailed').hide();
+        $('#cardErrors').hide();
+        $('#unavailableArtworks').hide();
     },
 
     handleFormSubmit: async function(event) {
         event.preventDefault();
+        $('#spinner').show();
+        $('#cardElement').hide();
+        $('#submit').hide();
+        $('#backToCartBtn').hide();
+        $('#cardErrors').hide();
         const { error, paymentMethod } = await this.stripe.createPaymentMethod('card', this.cardElement);
 
         if (error) {
             this.showError(error.message);
+            $('#spinner').hide();
+            $('#cardElement').show();
+            $('#submit').show();
+            $('#backToCartBtn').show();
         } else {
             const clientSecret = await this.fetchClientSecret();
             if (clientSecret) {
                 this.confirmPayment(clientSecret, paymentMethod.id);
+            } else {
+                $('#spinner').hide();
+                $('#cardElement').show();
+                $('#submit').show();
+                $('#backToCartBtn').show();
             }
         }
     },
@@ -41,11 +57,16 @@ const checkoutManager = {
                 }
             });
 
-            const data = await response.json();
-            if (data.status === 'error') {
-                this.handleUnavailableArtworks(data.unavailableArtworks);
-                return null;
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.log("Error Response:", errorData);
+                if (errorData.status === 'error') {
+                    this.handleUnavailableArtworks(errorData.unavailableArtworks);
+                    return null;
+                }
             }
+
+            const data = await response.json();
             return data.clientSecret;
         } catch (error) {
             this.showError('Failed to fetch client secret. Please try again.');
@@ -60,7 +81,11 @@ const checkoutManager = {
 
         if (error) {
             this.showError(error.message);
+            $('#spinner').hide();
+            $('#cardElement').show();
+            $('#submit').show();
             $('#paymentFailed').show();
+            $('#backToCartBtn').show();
         } else {
             this.finalizePurchase();
         }
@@ -77,19 +102,28 @@ const checkoutManager = {
 
             const data = await response.json();
             if (data.status === 'success') {
+                $('#spinner').hide();
                 $('#paymentSuccess').show();
                 $('#paymentForm').hide();
                 $('#backToCartBtn').hide();
                 setTimeout(() => {
                     window.location.href = `${contextPath}/`;
-                }, 2000);
+                }, 5000);
             } else {
                 this.showError('Failed to finalize purchase. Please try again.');
+                $('#spinner').hide();
+                $('#cardElement').show();
+                $('#submit').show();
                 $('#paymentFailed').show();
+                $('#backToCartBtn').show();
             }
         } catch (error) {
             this.showError('Failed to finalize purchase. Please try again.');
+            $('#spinner').hide();
+            $('#cardElement').show();
+            $('#submit').show();
             $('#paymentFailed').show();
+            $('#backToCartBtn').show(); 
         }
     },
 
@@ -99,13 +133,17 @@ const checkoutManager = {
     },
 
     handleUnavailableArtworks: function(unavailableArtworks) {
-        let message = 'Some artworks are no longer available:\n';
+        $('#submit').hide();
+        let message = 'Some artworks are no longer available. Please remove these artworks from your cart and try again:\n';
         unavailableArtworks.forEach(artwork => {
             message += `- ${artwork.title}\n`;
         });
-        this.showError(message);
+        const unavailableArtworksElement = document.getElementById('unavailableArtworks');
+        unavailableArtworksElement.textContent = message;
+        unavailableArtworksElement.style.display = 'block';
+
         unavailableArtworks.forEach(artwork => {
-            $(`button[data-cart-item-id="${artwork.id}"]`).closest('tr').remove();
+            $(`tr:has(td:contains(${artwork.title}))`).remove();
         });
         this.updateTotal();
     },

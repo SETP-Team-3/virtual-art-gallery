@@ -7,6 +7,9 @@ UPDATE `vartgallery`.`artwork` SET `status` = 'available';
 -- Set ALL the artwork.buyer_id to NULL again
 UPDATE `vartgallery`.`artwork` SET `buyer_id` = NULL;
 
+-- Set ALL the artwork.version to 0 again
+UPDATE `vartgallery`.`artwork` SET `version` = 0;
+
 -- Empty out whatever's in the transaction table
 TRUNCATE TABLE `vartgallery`.`transaction`;
 

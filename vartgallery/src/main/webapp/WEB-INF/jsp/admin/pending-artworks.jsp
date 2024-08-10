@@ -19,6 +19,7 @@
                         <th>Username</th>
                         <th>Title</th>
                         <th>Description</th>
+                        <th>Dimension</th>
                         <th>Price</th>
                         <th>Image</th>
                         <th>Actions</th>
@@ -30,8 +31,9 @@
                             <td>${pendingArtwork.artistId.name}</td>
                             <td>${pendingArtwork.title}</td>
                             <td>${pendingArtwork.description}</td>
+                            <td>${pendingArtwork.dimension}</td>
                             <td>$${pendingArtwork.price}</td>
-                            <td><img src="${pageContext.request.contextPath}/artwork/${pendingArtwork.image}" width="100" /></td>
+                            <td><img src="${pageContext.request.contextPath}/artwork/${pendingArtwork.image}" alt="" width="100" /></td>
                             <td>
                                 <button type="button" class="btn btn-success w-100 mb-2 vag-btn-approve" data-id="${pendingArtwork.id}">Approve</button>
                                 <button type="button" class="btn btn-danger w-100 vag-btn-reject" data-id="${pendingArtwork.id}">Reject</button>

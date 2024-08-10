@@ -19,9 +19,6 @@
                     <div class="mb-3">
                         <button type="button" class="btn vag-btn-tan w-100" id="signinButton">Sign In</button>
                     </div>
-                    <!-- <div class="d-flex justify-content-center">
-                        <a href="#" class="vag-a-tan vag-text-point7rem">Forgot Password?</a>
-                    </div> -->
                     <div class="d-flex justify-content-center text-danger" id="signinError" style="display: none;">
                         <p id="signinErrorMessage"></p>
                     </div>

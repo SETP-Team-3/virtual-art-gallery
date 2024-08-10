@@ -2,8 +2,6 @@ package com.setpteam3.vartgallery.controller;
 
 import com.setpteam3.vartgallery.entity.Artwork;
 import com.setpteam3.vartgallery.service.ArtworkService;
-import com.stripe.exception.StripeException;
-import com.stripe.model.checkout.Session;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
@@ -19,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/cart")

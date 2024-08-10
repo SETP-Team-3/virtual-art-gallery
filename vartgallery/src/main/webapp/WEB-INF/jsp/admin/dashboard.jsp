@@ -82,7 +82,7 @@
                 <div class="row">
                     <div class="col-sm-4 mb-4">
                         <a href="${pageContext.request.contextPath}/admin/manage-artworks" class="card">
-                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top">
+                            <img src="${pageContext.request.contextPath}/manage-artworks.jpg" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">Manage Artworks</h5>
                             </div>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="col-sm-4 mb-4">
                         <a href="${pageContext.request.contextPath}/admin/manage-users" class="card">
-                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top">
+                            <img src="${pageContext.request.contextPath}/manage-users.jpg" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">Manage Users</h5>
                             </div>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-sm-4 mb-4">
                         <a href="${pageContext.request.contextPath}/admin/manage-transactions" class="card">
-                            <img src="${pageContext.request.contextPath}/artwork/image-01.jpg" class="card-img-top">
+                            <img src="${pageContext.request.contextPath}/manage-transactions.jpg" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title">Manage Transactions</h5>
                             </div>

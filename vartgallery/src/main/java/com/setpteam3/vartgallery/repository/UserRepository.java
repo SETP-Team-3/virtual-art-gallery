@@ -14,30 +14,40 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByEmail(String email);
 
+    @Query("SELECT u FROM User u WHERE u.email = :email AND u.active = 'Y'")
+    User findActiveUserByEmail(@Param("email") String email);
+
     Page<User> findByRole(@Param("role") String role, Pageable pageable);
 
-    @Query("SELECT u FROM User u LEFT JOIN u.genres g WHERE u.role = 'artist' AND " +
+    List<User> findByActive(String active);
+
+    Page<User> findByRoleAndActive(String role, String active, Pageable pageable);
+
+    @Query("SELECT u FROM User u LEFT JOIN u.genres g WHERE u.role = 'artist' AND u.active = :active AND " +
             "(:name IS NULL OR LOWER(u.name) LIKE %:name%) AND " +
             "(:genreIds IS NULL OR g.id IN :genreIds)")
     Page<User> findArtistsByFiltersWithGenres(
             @Param("name") String name,
             @Param("genreIds") List<Integer> genreIds,
+            @Param("active") String active,
             Pageable pageable);
 
-    @Query("SELECT u FROM User u WHERE u.role = 'artist' AND " +
+    @Query("SELECT u FROM User u WHERE u.role = 'artist' AND u.active = :active AND " +
             "(:name IS NULL OR LOWER(u.name) LIKE %:name%)")
     Page<User> findArtistsByFiltersWithoutGenres(
             @Param("name") String name,
+            @Param("active") String active,
             Pageable pageable);
 
     default Page<User> findArtistsByFilters(
             String name,
             List<Integer> genreIds,
+            String active,
             Pageable pageable) {
         if (genreIds == null || genreIds.isEmpty()) {
-            return findArtistsByFiltersWithoutGenres(name, pageable);
+            return findArtistsByFiltersWithoutGenres(name, active, pageable);
         } else {
-            return findArtistsByFiltersWithGenres(name, genreIds, pageable);
+            return findArtistsByFiltersWithGenres(name, genreIds, active, pageable);
         }
     }
 }

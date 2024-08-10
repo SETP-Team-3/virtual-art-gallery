@@ -31,9 +31,7 @@ public class GalleryController {
     }
 
     @GetMapping
-    public String index(Model model,
-                        @RequestParam Optional<Integer> page,
-                        @RequestParam Optional<Integer> size) {
+    public String index(Model model, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
         int currentPage = page.orElse(1) - 1;
         int pageSize = size.orElse(8);
         Pageable pageable = PageRequest.of(currentPage, pageSize);
@@ -56,9 +54,7 @@ public class GalleryController {
 
     @PostMapping("/filter-artworks")
     @ResponseBody
-    public Page<Artwork> filterArtworks(@RequestBody Map<String, Object> filters,
-                                        @RequestParam Optional<Integer> page,
-                                        @RequestParam Optional<Integer> size) {
+    public Page<Artwork> filterArtworks(@RequestBody Map<String, Object> filters, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
         String title = (String) filters.get("title");
         String artist = (String) filters.get("artist");
         Double minPrice = Double.valueOf(filters.get("minPrice").toString());
@@ -74,9 +70,7 @@ public class GalleryController {
 
     @PostMapping("/filter-artists")
     @ResponseBody
-    public Page<User> filterArtists(@RequestBody Map<String, Object> filters,
-                                    @RequestParam Optional<Integer> page,
-                                    @RequestParam Optional<Integer> size) {
+    public Page<User> filterArtists(@RequestBody Map<String, Object> filters, @RequestParam Optional<Integer> page, @RequestParam Optional<Integer> size) {
         String name = (String) filters.get("name");
         List<Integer> genreIds = (List<Integer>) filters.get("genres");
 

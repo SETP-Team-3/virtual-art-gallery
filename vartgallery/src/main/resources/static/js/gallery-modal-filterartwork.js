@@ -80,9 +80,14 @@ const galleryModalFilterArtworkManager = {
 
                 $.each(response.content, function(index, artwork) {
                     var artworkGenres = '';
+                    var artworkStatus = '';
                     $.each(artwork.genres, function(i, genre) {
                         artworkGenres += `<span class="badge bg-secondary">${genre.name}</span> `;
                     });
+
+                    if (artwork.status == 'sold') {
+                        artworkStatus = `<span class="badge text-bg-danger">SOLD</span>`;
+                    }
 
                     var artworkCard = `
                         <div class="col-6 col-md-3 mb-4 artwork-card" data-id="${artwork.id}" data-title="${artwork.title}" style="cursor: pointer;">
@@ -90,8 +95,11 @@ const galleryModalFilterArtworkManager = {
                                 <img src="${contextPath}/artwork/${artwork.image}" class="card-img-top" alt="${artwork.title}">
                                 <div class="card-body">
                                     <h5 class="card-title">${artwork.title}</h5>
-                                    <p class="card-text">${artwork.artistId.name}<br />
-                                    <span class="vag-artwork-price">${artwork.price}</span>
+                                    ${artworkStatus}
+                                    <p class="card-text">
+                                        <span style="font-size: small">${artwork.dimension}</span><br />
+                                        ${artwork.artistId.name}<br />
+                                        <span class="vag-artwork-price">${artwork.price}</span>
                                     </p>
                                     ${artworkGenres}
                                 </div>
